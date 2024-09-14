@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\renault.risk.manager.Api.props" />
+</Project>

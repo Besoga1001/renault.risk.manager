@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{D178F166-D557-44EF-ADBA-C959AAC047E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{7A03BF56-99F5-41C7-A56F-FE6460BFA39F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrasctructure", "Infrasctructure", "{65003B4E-4A31-4B5E-85BB-B37BC40A3B62}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{AA1A781C-4463-4242-AC61-72B2B625B3BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "renault.risk.manager.Api", "renault.risk.manager.Api\renault.risk.manager.Api.csproj", "{BA5B5A2C-E616-4271-9535-D6EEA71DD6F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "renault.risk.manager.Application", "renault.risk.manager.Application\renault.risk.manager.Application.csproj", "{98B68C57-9E0F-4191-A542-EF880A00F4DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "renault.risk.manager.Domain", "renault.risk.manager.Domain\renault.risk.manager.Domain.csproj", "{5F64A72C-3308-47E5-B5CB-9DFA6B36EAEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "renault.risk.manager.Infrastructure", "renault.risk.manager.Infrastructure\renault.risk.manager.Infrastructure.csproj", "{C6EE768B-9ABD-4125-8229-20CD70E5FBB2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C5B5E909-7B45-415A-84E9-DB176D0FC2B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BA5B5A2C-E616-4271-9535-D6EEA71DD6F6} = {AA1A781C-4463-4242-AC61-72B2B625B3BA}
+		{98B68C57-9E0F-4191-A542-EF880A00F4DA} = {7A03BF56-99F5-41C7-A56F-FE6460BFA39F}
+		{5F64A72C-3308-47E5-B5CB-9DFA6B36EAEB} = {D178F166-D557-44EF-ADBA-C959AAC047E4}
+		{C6EE768B-9ABD-4125-8229-20CD70E5FBB2} = {65003B4E-4A31-4B5E-85BB-B37BC40A3B62}
+		{AA1A781C-4463-4242-AC61-72B2B625B3BA} = {C5B5E909-7B45-415A-84E9-DB176D0FC2B3}
+		{7A03BF56-99F5-41C7-A56F-FE6460BFA39F} = {C5B5E909-7B45-415A-84E9-DB176D0FC2B3}
+		{D178F166-D557-44EF-ADBA-C959AAC047E4} = {C5B5E909-7B45-415A-84E9-DB176D0FC2B3}
+		{65003B4E-4A31-4B5E-85BB-B37BC40A3B62} = {C5B5E909-7B45-415A-84E9-DB176D0FC2B3}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA5B5A2C-E616-4271-9535-D6EEA71DD6F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA5B5A2C-E616-4271-9535-D6EEA71DD6F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA5B5A2C-E616-4271-9535-D6EEA71DD6F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA5B5A2C-E616-4271-9535-D6EEA71DD6F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98B68C57-9E0F-4191-A542-EF880A00F4DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98B68C57-9E0F-4191-A542-EF880A00F4DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98B68C57-9E0F-4191-A542-EF880A00F4DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98B68C57-9E0F-4191-A542-EF880A00F4DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F64A72C-3308-47E5-B5CB-9DFA6B36EAEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F64A72C-3308-47E5-B5CB-9DFA6B36EAEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F64A72C-3308-47E5-B5CB-9DFA6B36EAEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F64A72C-3308-47E5-B5CB-9DFA6B36EAEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6EE768B-9ABD-4125-8229-20CD70E5FBB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6EE768B-9ABD-4125-8229-20CD70E5FBB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6EE768B-9ABD-4125-8229-20CD70E5FBB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6EE768B-9ABD-4125-8229-20CD70E5FBB2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
