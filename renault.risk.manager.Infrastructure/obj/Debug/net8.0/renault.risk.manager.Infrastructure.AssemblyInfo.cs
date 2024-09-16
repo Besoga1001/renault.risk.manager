@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("renault.risk.manager.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cbec4a80a4924737a4194a5400c0dc36508472a6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d4ceaf9fecda10aa34e9882ee297ffac4af472d")]
 [assembly: System.Reflection.AssemblyProductAttribute("renault.risk.manager.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("renault.risk.manager.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

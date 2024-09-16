@@ -2804,19 +2804,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrador\\.nuget\\packages\\": {}
+    "C:\\Users\\Bernardo Garcia\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\Dotnet\\renault.risk.manager\\renault.risk.manager.Api\\renault.risk.manager.Api.csproj",
+      "projectUniqueName": "C:\\SenaiProjects\\renault.risk.manager\\renault.risk.manager.Api\\renault.risk.manager.Api.csproj",
       "projectName": "renault.risk.manager.Api",
-      "projectPath": "C:\\Projects\\Dotnet\\renault.risk.manager\\renault.risk.manager.Api\\renault.risk.manager.Api.csproj",
-      "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\Dotnet\\renault.risk.manager\\renault.risk.manager.Api\\obj\\",
+      "projectPath": "C:\\SenaiProjects\\renault.risk.manager\\renault.risk.manager.Api\\renault.risk.manager.Api.csproj",
+      "packagesPath": "C:\\Users\\Bernardo Garcia\\.nuget\\packages\\",
+      "outputPath": "C:\\SenaiProjects\\renault.risk.manager\\renault.risk.manager.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Bernardo Garcia\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2824,14 +2824,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Projects\\Dotnet\\renault.risk.manager\\renault.risk.manager.Infrastructure\\renault.risk.manager.Infrastructure.csproj": {
-              "projectPath": "C:\\Projects\\Dotnet\\renault.risk.manager\\renault.risk.manager.Infrastructure\\renault.risk.manager.Infrastructure.csproj"
+            "C:\\SenaiProjects\\renault.risk.manager\\renault.risk.manager.Infrastructure\\renault.risk.manager.Infrastructure.csproj": {
+              "projectPath": "C:\\SenaiProjects\\renault.risk.manager\\renault.risk.manager.Infrastructure\\renault.risk.manager.Infrastructure.csproj"
             }
           }
         }
@@ -2890,7 +2891,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

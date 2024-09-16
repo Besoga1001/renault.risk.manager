@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using renault.risk.manager.Api.Middlewares;
 using renault.risk.manager.Infrastructure.Context;
 using renault.risk.manager.Infrastructure.Repositories.Interfaces;
 using renault.risk.manager.Infrastructure.Repositories.Services;
@@ -25,5 +26,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<RiskManagerExceptionMiddleware>();
 
 app.Run();
