@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\renault.risk.manager.Domain\renault.risk.manager.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

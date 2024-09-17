@@ -1,9 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using renault.risk.manager.Api.Middlewares;
+using renault.risk.manager.Infrastructure.Context;
+using renault.risk.manager.Infrastructure.Repositories.Interfaces;
+using renault.risk.manager.Infrastructure.Repositories.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<RiskManagerContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 
 var app = builder.Build();
 
@@ -15,5 +26,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<RiskManagerExceptionMiddleware>();
 
 app.Run();

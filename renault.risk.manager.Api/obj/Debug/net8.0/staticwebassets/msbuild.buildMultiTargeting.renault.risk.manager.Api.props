@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\renault.risk.manager.Api.props" />
-</Project>
