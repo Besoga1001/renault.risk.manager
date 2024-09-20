@@ -1,14 +1,19 @@
+using renault.risk.manager.Application.Extensions;
 using renault.risk.manager.Application.Interfaces;
+using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
+using renault.risk.manager.Infrastructure.Repositories.Interfaces;
 
 namespace renault.risk.manager.Application.Services;
 
-public class ProjectService : IProjectService
+public class ProjectService(IProjectRepository projectRepository) : IProjectService
 {
-    public Task<ProjectResponseDTO> Insert(ProjectRequestDTO projectRequestDto)
+
+    public async Task<ProjectResponseDTO> Insert(ProjectRequestDTO projectRequestDto)
     {
-        return null;
+        tb_project projectEntity = await projectRepository.AddAsync(projectRequestDto.toEntity());
+        return projectEntity.toDTO();
     }
 
     public Task<IEnumerable<ProjectResponseDTO>> GetAll()

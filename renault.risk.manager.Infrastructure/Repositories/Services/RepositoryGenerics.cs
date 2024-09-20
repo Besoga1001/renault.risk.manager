@@ -55,6 +55,13 @@ public class RepositoryGenerics<T> : IRepositoryGenerics<T> where T : class
         return entity;
     }
 
+    public async Task<T> AddAsync(T entity)
+    {
+        _context.Set<T>().Add(entity);
+        await _context.SaveChangesAsync();
+        return entity;
+    }
+
     public T Update(in T entity)
     {
         _context.Set<T>().Update(entity);

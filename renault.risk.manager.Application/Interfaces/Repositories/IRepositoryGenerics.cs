@@ -8,5 +8,6 @@ public interface IRepositoryGenerics<T>
     Task<T?> GetByIdAsync(int id);
     bool Remove(int id);
     T Add(in T entity);
+    Task<T> AddAsync(T entity);
     T Update(in T entity);
 }
