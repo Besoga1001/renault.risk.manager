@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using renault.risk.manager.Domain.Entities;
+using renault.risk.manager.Infrastructure.Configurations;
 
 namespace renault.risk.manager.Infrastructure.Context;
 
@@ -16,7 +17,7 @@ public class RiskManagerContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-    
-        // Configurações adicionais de modelagem (opcional)
+
+        modelBuilder.ApplyConfiguration(new tb_projectConfig());
     }
 }

@@ -1,6 +1,6 @@
+using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Infrastructure.Context;
-using renault.risk.manager.Infrastructure.Repositories.Interfaces;
 
 namespace renault.risk.manager.Infrastructure.Repositories.Services;
 

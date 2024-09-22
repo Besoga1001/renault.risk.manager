@@ -1,9 +1,8 @@
 using renault.risk.manager.Application.Extensions;
-using renault.risk.manager.Application.Interfaces;
-using renault.risk.manager.Domain.Entities;
+using renault.risk.manager.Application.Interfaces.Repositories;
+using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
-using renault.risk.manager.Infrastructure.Repositories.Interfaces;
 
 namespace renault.risk.manager.Application.Services;
 
@@ -12,17 +11,26 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
 
     public async Task<ProjectResponseDTO> Insert(ProjectRequestDTO projectRequestDto)
     {
-        tb_project projectEntity = await projectRepository.AddAsync(projectRequestDto.toEntity());
-        return projectEntity.toDTO();
+        var projectEntity = await projectRepository.AddAsync(projectRequestDto.ToEntity());
+        return projectEntity.ToDto();
     }
 
-    public Task<IEnumerable<ProjectResponseDTO>> GetAll()
+    public IEnumerable<ProjectResponseDTO> GetAll()
     {
-        return null;
+        var projectEntities = projectRepository.GetAll();
+        return projectEntities.Select(x => x.ToDto());
+    }
+    
+    public async Task<ProjectResponseDTO> GetById(int id)
+    {
+        var projectEntity = await projectRepository.GetByIdAsync(id);
+        return projectEntity.ToDto();
     }
 
-    public bool Delete(int id)
+    public string Delete(int id)
     {
-        return false;
+        var response = projectRepository.Remove(id);
+        return response ? $"Registry {id} Deleted Successfully" : $"Error to Delete Registry {id}";
     }
+
 }

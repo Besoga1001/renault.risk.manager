@@ -1,9 +1,9 @@
-namespace renault.risk.manager.Infrastructure.Repositories.Interfaces;
+namespace renault.risk.manager.Application.Interfaces.Repositories;
 
 public interface IRepositoryGenerics<T>
 {
     IEnumerable<T> GetAll();
-    Task<IEnumerable<T>> GetAllAsync();
+    IAsyncEnumerable<T> GetAllAsync();
     T? GetById(int id);
     Task<T?> GetByIdAsync(int id);
     bool Remove(int id);

@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using renault.risk.manager.Api.Middlewares;
 using renault.risk.manager.Application.Interfaces;
+using renault.risk.manager.Application.Interfaces.Repositories;
+using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Application.Services;
 using renault.risk.manager.Infrastructure.Context;
-using renault.risk.manager.Infrastructure.Repositories.Interfaces;
 using renault.risk.manager.Infrastructure.Repositories.Services;
 
 var builder = WebApplication.CreateBuilder(args);
