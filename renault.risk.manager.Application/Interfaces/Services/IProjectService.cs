@@ -6,7 +6,7 @@ namespace renault.risk.manager.Application.Interfaces.Services;
 public interface IProjectService
 {
     Task<ProjectResponseDTO> Insert(ProjectRequestDTO projectRequestDto);
-    IEnumerable<ProjectResponseDTO> GetAll();
+    Task<List<ProjectResponseDTO>> GetAllAsync(string? name);
     Task<ProjectResponseDTO> GetById(int id);
     string Delete(int id);
 

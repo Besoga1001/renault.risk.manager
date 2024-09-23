@@ -15,13 +15,13 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
     }
     
     [HttpGet]
-    public ObjectResult GetAll()
+    public ObjectResult GetAll([FromQuery] string? name)
     {
-        return new OkObjectResult(projectService.GetAll());
+        return new OkObjectResult(projectService.GetAllAsync(name));
     }
     
     [HttpGet("{id:int}")]
-    public ObjectResult GetAll(int id)
+    public ObjectResult GetById(int id)
     {
         return new OkObjectResult(projectService.GetById(id));
     }

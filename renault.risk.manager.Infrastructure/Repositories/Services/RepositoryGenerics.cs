@@ -1,38 +1,63 @@
+using Microsoft.EntityFrameworkCore;
 using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Infrastructure.Context;
 
 namespace renault.risk.manager.Infrastructure.Repositories.Services;
 
-public class RepositoryGenerics<T>(RiskManagerContext riskManagerContext) : IRepositoryGenerics<T> where T : class
+public class RepositoryGenerics<T> : IRepositoryGenerics<T> where T : class
 {
-    public IEnumerable<T> GetAll()
+    private readonly RiskManagerContext _riskManagerContext;
+
+    protected RepositoryGenerics(RiskManagerContext riskManagerContext)
     {
-         return riskManagerContext.Set<T>().AsEnumerable();
+        _riskManagerContext = riskManagerContext;
+    }
+    
+    public T Add(T entity)
+    {
+        _riskManagerContext.Set<T>().Add(entity);
+        return entity;
     }
 
-    public IAsyncEnumerable<T> GetAllAsync()
+    public async Task<T> AddAsync(T entity)
     {
-        return riskManagerContext.Set<T>().AsAsyncEnumerable();
+        await _riskManagerContext.Set<T>().AddAsync(entity);
+        return entity;
+    }
+    
+    public List<T> GetAll()
+    {
+         return _riskManagerContext.Set<T>().ToList();
+    }
+
+    public async Task<List<T>> GetAllAsync()
+    {
+        return await _riskManagerContext.Set<T>().ToListAsync();
     }
     
     public T? GetById(int id)
     {
-        return riskManagerContext.Set<T>().Find(id);
+        return _riskManagerContext.Set<T>().Find(id);
     }
 
     public async Task<T?> GetByIdAsync(int id)
     {
-         var a = riskManagerContext.Set<T>();
-         return null;
+        return await _riskManagerContext.Set<T>().FindAsync(id);
     }
 
+    public T Update(T entity)
+    {
+        _riskManagerContext.Set<T>().Update(entity);
+        return entity;
+    }
+    
     public bool Remove(int id)
     {
         var entity = GetById(id);
         if (entity == null) return false;
         try
         {
-            riskManagerContext.Set<T>().Remove(entity);
+            _riskManagerContext.Set<T>().Remove(entity);
             return true;
         }
         catch
@@ -41,24 +66,30 @@ public class RepositoryGenerics<T>(RiskManagerContext riskManagerContext) : IRep
         }
     }
 
-    public T Add(in T entity)
+    public bool SaveChange()
     {
-        riskManagerContext.Set<T>().Add(entity);
-        riskManagerContext.SaveChanges();
-        return entity;
+        try
+        {
+            _riskManagerContext.SaveChanges();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
-    public async Task<T> AddAsync(T entity)
+    public async Task<bool> SaveChangesAsync()
     {
-        riskManagerContext.Set<T>().Add(entity);
-        await riskManagerContext.SaveChangesAsync();
-        return entity;
+        try
+        {
+            await _riskManagerContext.SaveChangesAsync();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
-
-    public T Update(in T entity)
-    {
-        riskManagerContext.Set<T>().Update(entity);
-        riskManagerContext.SaveChanges();
-        return entity;
-    }
+    
 }

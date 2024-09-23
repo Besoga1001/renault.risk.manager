@@ -2,12 +2,14 @@ namespace renault.risk.manager.Application.Interfaces.Repositories;
 
 public interface IRepositoryGenerics<T>
 {
-    IEnumerable<T> GetAll();
-    IAsyncEnumerable<T> GetAllAsync();
+    T? Add(T entity);
+    Task<T> AddAsync(T entity);
+    List<T> GetAll();
+    Task<List<T>> GetAllAsync();
     T? GetById(int id);
     Task<T?> GetByIdAsync(int id);
+    T Update(T entity);
     bool Remove(int id);
-    T Add(in T entity);
-    Task<T> AddAsync(T entity);
-    T Update(in T entity);
+    bool SaveChange();
+    Task<bool> SaveChangesAsync();
 }
