@@ -26,19 +26,11 @@ public class ProjectService : IProjectService
 
     public async Task<List<ProjectResponseDTO>> GetAllAsync(string? name)
     {
-        List<tb_project> projectEntities;
-        if (name != null)
-        {
-            projectEntities = await _projectRepository.GetAllAsyncByName(name);
-        }
-        else
-        {
-            projectEntities = await _projectRepository.GetAllAsync();
-        }
+        var projectEntities = await _projectRepository.GetAllAsync(name);
         return projectEntities.Select(x => x.ToDto()).ToList();
     }
     
-    public async Task<ProjectResponseDTO> GetById(int id)
+    public async Task<ProjectResponseDTO> GetByIdAsync(int id)
     {
         var projectEntity = await _projectRepository.GetByIdAsync(id);
         return projectEntity.ToDto();

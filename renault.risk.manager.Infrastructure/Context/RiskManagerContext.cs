@@ -13,6 +13,7 @@ public class RiskManagerContext : DbContext
     
     //DbSets
     public DbSet<tb_project> tb_projects { get; set; }
+    public DbSet<tb_user> tb_users { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

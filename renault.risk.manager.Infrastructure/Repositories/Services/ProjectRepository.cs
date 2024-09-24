@@ -9,15 +9,21 @@ public class ProjectRepository : RepositoryGenerics<tb_project>, IProjectReposit
 {
     private readonly RiskManagerContext _riskManagerContext;
     
-    
     // ReSharper disable once ConvertToPrimaryConstructor
     public ProjectRepository(RiskManagerContext context) : base(context)
     {
         _riskManagerContext = context;
     }
 
-    public async Task<List<tb_project>> GetAllAsyncByName(string name)
+    public async Task<List<tb_project>> GetAllAsync(string? name)
     {
-        return await _riskManagerContext.tb_projects.Where(r => r.pjc_name == name).ToListAsync();
+        var query = _riskManagerContext.tb_projects.AsQueryable();
+        
+        if (!string.IsNullOrWhiteSpace(name))
+        {
+            query = query.Where(r => r.pjc_name.Contains(name));
+        }
+        
+        return await query.ToListAsync();
     }
 }

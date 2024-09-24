@@ -7,7 +7,7 @@ public interface IProjectService
 {
     Task<ProjectResponseDTO> Insert(ProjectRequestDTO projectRequestDto);
     Task<List<ProjectResponseDTO>> GetAllAsync(string? name);
-    Task<ProjectResponseDTO> GetById(int id);
+    Task<ProjectResponseDTO> GetByIdAsync(int id);
     string Delete(int id);
 
 }
