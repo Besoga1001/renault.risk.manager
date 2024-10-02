@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using renault.risk.manager.Api.Middlewares;
+using renault.risk.manager.Application.Interfaces;
+using renault.risk.manager.Application.Interfaces.Repositories;
+using renault.risk.manager.Application.Interfaces.Services;
+using renault.risk.manager.Application.Services;
 using renault.risk.manager.Infrastructure.Context;
-using renault.risk.manager.Infrastructure.Repositories.Interfaces;
 using renault.risk.manager.Infrastructure.Repositories.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,9 +14,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddControllers();
+
 builder.Services.AddDbContext<RiskManagerContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 
 var app = builder.Build();
@@ -27,5 +33,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseMiddleware<RiskManagerExceptionMiddleware>();
+app.MapControllers();
 
 app.Run();

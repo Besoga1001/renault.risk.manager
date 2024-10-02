@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using renault.risk.manager.Domain.Entities;
 
-namespace renault.risk.manager.Infrastructure.Configurations;
+namespace renault.risk.manager.Infrastructure.Context.Configurations;
 
 public class tb_projectConfig : IEntityTypeConfiguration<tb_project>
 {

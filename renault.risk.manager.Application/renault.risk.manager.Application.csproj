@@ -10,4 +10,8 @@
       <ProjectReference Include="..\renault.risk.manager.Domain\renault.risk.manager.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Interfaces\Services.cs" />
+    </ItemGroup>
+
 </Project>
