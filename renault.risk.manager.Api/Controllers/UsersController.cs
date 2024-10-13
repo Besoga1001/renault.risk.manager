@@ -15,8 +15,15 @@ public class UsersController : ControllerBase
         _userService = userService;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GenerateToken()
+    {
+        var response = await _userService.GenerateToken();
+        return Ok(response.AccessToken);
+    }
+
     [HttpPost]
-    [Authorize]
+    [Authorize(Policy = "ApiAccess")]
     public void ValidateUser()
     {
         _userService.ValidateUser();

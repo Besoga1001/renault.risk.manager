@@ -24,18 +24,29 @@ builder.Services.Configure<RouteOptions>(options =>
 
 // MSAL Tokens Configuration
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+    .AddMicrosoftIdentityWebApi(options =>
+        {
+            builder.Configuration.Bind("AzureAd", options);
+            options.TokenValidationParameters.NameClaimType = "name";
+        },
+        options =>
+        {
+            builder.Configuration.Bind("AzureAd", options);
+        });
+
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("ApiAccess", policy =>
+        policy.RequireClaim("tid", "245c550b-85da-468e-812b-0fe900e4abaf"));
 
 builder.Services.AddDbContext<RiskManagerContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 
 var app = builder.Build();
-
-app.UseAuthentication();
-app.UseAuthorization();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
