@@ -13,6 +13,7 @@ public class RiskManagerContext : DbContext
     
     //DbSets
     public DbSet<tb_project> tb_projects { get; set; }
+    public DbSet<tb_risk> tb_risk { get; set; }
     public DbSet<tb_user> tb_users { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,6 +21,7 @@ public class RiskManagerContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfiguration(new tb_projectConfig());
+        modelBuilder.ApplyConfiguration(new tb_riskConfig());
         modelBuilder.ApplyConfiguration(new tb_userConfig());
     }
 }
