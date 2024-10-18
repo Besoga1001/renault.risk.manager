@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Domain.RequestDTOs;
@@ -6,7 +5,6 @@ using renault.risk.manager.Domain.RequestDTOs;
 namespace renault.risk.manager.Api.Controllers;
 
 [ApiController]
-[Authorize]
 [Route("api/[controller]")]
 public class ProjectsController(IProjectService projectService) : ControllerBase
 {

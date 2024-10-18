@@ -11,7 +11,6 @@ public class UsersController : ControllerBase
 {
     private readonly IUserService _userService;
 
-    
     public UsersController(IUserService userService)
     {
         _userService = userService;
@@ -20,7 +19,10 @@ public class UsersController : ControllerBase
     [HttpPost]
     public void ValidateUser()
     {
-        var email = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value;
+        var email = User
+            .Claims
+            .FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?
+            .Value;
 
         if (email != null)
         {

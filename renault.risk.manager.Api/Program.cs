@@ -23,12 +23,14 @@ builder.Services.Configure<RouteOptions>(options =>
 });
 
 // MSAL Tokens Configuration
+
+/*
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 builder.Services.AddAuthorization();
 
-// builder.Services.AddAuthorization();
+*/
 
 // builder.Services.AddAuthorization(options =>
 // {
@@ -41,9 +43,8 @@ builder.Services.AddDbContext<RiskManagerContext>(options =>
 
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
-
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
