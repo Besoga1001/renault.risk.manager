@@ -45,6 +45,9 @@ builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ISolutionRepository, SolutionRepository>();
+builder.Services.AddScoped<IRiskService, RiskService>();
+builder.Services.AddScoped<IRiskRepository, RiskRepository>();
 
 var app = builder.Build();
 
