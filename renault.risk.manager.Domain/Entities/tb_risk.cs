@@ -18,5 +18,6 @@ public class tb_risk
     public DateTime rsk_created_at { get; set; }
     public DateTime rsk_updated_at { get; set; }
     public int rsk_solution_id { get; set; } // FK
+    public tb_solution TbSolution { get; set; }
     public int rsk_usr_id { get; set; } // FK
 }

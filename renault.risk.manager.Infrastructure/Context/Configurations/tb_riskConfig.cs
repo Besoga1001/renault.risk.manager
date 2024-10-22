@@ -10,5 +10,9 @@ public class tb_riskConfig  : IEntityTypeConfiguration<tb_risk>
     {
         builder.ToTable(nameof(tb_risk))
             .HasKey(nameof(tb_risk.rsk_id));
+
+        builder.HasOne(y => y.TbSolution)
+            .WithOne(x => x.TbRisk)
+            .HasForeignKey<tb_solution>(x => x.sln_risk_id);
     }
 }
