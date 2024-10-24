@@ -1,7 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace renault.risk.manager.Domain.Entities;
 
 public class tb_solution
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int sln_id { get; set; }
     public string sln_strategy { get; set; }
     public string sln_residual_probability { get; set; }
@@ -17,6 +22,7 @@ public class tb_solution
     public DateTime sln_resolution_date { get; set; }
     public DateTime sln_created_at { get; set; }
     public DateTime sln_updated_at { get; set; }
+    [ForeignKey("rsk_id")]
     public int sln_risk_id { get; set; }
     public virtual tb_risk TbRisk { get; set; }
 }
