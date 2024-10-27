@@ -27,6 +27,6 @@ public class tb_risk
     public int rsk_usr_id { get; set; }
     [ForeignKey("rsk_usr_id")]
     public virtual tb_user TbUser { get; set; }
-    public virtual tb_solution TbSolution { get; set; }
+    public virtual tb_solution? TbSolution { get; set; }
 
 }

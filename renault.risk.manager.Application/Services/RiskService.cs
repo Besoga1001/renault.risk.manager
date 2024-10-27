@@ -15,17 +15,20 @@ public class RiskService : IRiskService
         _riskRepository = riskRepository;
     }
 
-    public async Task<RiskResponseDTO> InsertAsync(RiskRequestDTO riskRequestDto)
+    public async Task<RiskResponseDTO> InsertAsync(RiskInsertRequestDTO riskInsertRequestDto)
     {
-        var riskEntidade = riskRequestDto.toEntity();
-        var riskEntity = await _riskRepository.AddAsync(riskEntidade);
-        var boolean = await _riskRepository.SaveChangesAsync();
-        return riskEntity.toDto();
+        var riskEntity = await _riskRepository.AddAsync(riskInsertRequestDto.ToEntity());
+        await _riskRepository.SaveChangesAsync();
+        return riskEntity.ToDto();
     }
 
-    public async Task<RiskResponseDTO> UpdateAsync(RiskRequestDTO riskRequestDto)
+    public async Task<RiskResponseDTO> UpdateAsync(int riskId, RiskUpdateRequestDTO riskUpdateRequestDto)
     {
-        throw new NotImplementedException();
+        var riskEntity = await _riskRepository.GetByIdAsync(riskId) ?? throw new Exception();
+        riskEntity.Mapper(riskUpdateRequestDto);
+        _riskRepository.Update(riskEntity);
+        await _riskRepository.SaveChangesAsync();
+        return riskEntity.ToDto();
     }
 
     public async Task<List<RiskResponseDTO>> GetAllAsync()

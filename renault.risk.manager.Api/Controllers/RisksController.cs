@@ -16,15 +16,15 @@ public class RisksController
     }
 
     [HttpPost]
-    public async Task<ObjectResult> Insert(RiskRequestDTO riskRequestDto)
+    public async Task<ObjectResult> Insert(RiskInsertRequestDTO riskInsertRequestDto)
     {
-        return new OkObjectResult(await riskService.InsertAsync(riskRequestDto));
+        return new OkObjectResult(await riskService.InsertAsync(riskInsertRequestDto));
     }
 
-    [HttpPatch("{id}")]
-    public async Task<ObjectResult> Update(RiskRequestDTO riskRequestDto)
+    [HttpPatch("{riskId}")]
+    public async Task<ObjectResult> Update(int riskId, [FromBody] RiskUpdateRequestDTO riskUpdateRequestDto)
     {
-        return new OkObjectResult(await riskService.UpdateAsync(riskRequestDto));
+        return new OkObjectResult(await riskService.UpdateAsync(riskId, riskUpdateRequestDto));
     }
 
     [HttpGet]
