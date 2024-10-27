@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using renault.risk.manager.Domain.Exceptions;
 
 namespace renault.risk.manager.Api.Middlewares;
@@ -20,6 +21,10 @@ public class RiskManagerExceptionMiddleware
             await _next(context);
         }
         catch (NotFoundException ex)
+        {
+            await HandleExceptionAsync(context, ex);
+        }
+        catch (DbUpdateException ex)
         {
             await HandleExceptionAsync(context, ex);
         }
@@ -50,6 +55,21 @@ public class RiskManagerExceptionMiddleware
         var response = new
         {
             message = "Resource not found.",
+            detail = exception.Message
+        };
+
+        context.Response.StatusCode = (int)statusCode;
+        context.Response.ContentType = "application/json";
+
+        return context.Response.WriteAsync(JsonSerializer.Serialize(response));
+    }
+
+    private Task HandleExceptionAsync(HttpContext context, DbUpdateException exception)
+    {
+        const HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
+        var response = new
+        {
+            message = "An error occurred while saving changes to the database.",
             detail = exception.Message
         };
 
