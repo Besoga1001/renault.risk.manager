@@ -17,8 +17,9 @@ public class RiskService : IRiskService
 
     public async Task<RiskResponseDTO> InsertAsync(RiskRequestDTO riskRequestDto)
     {
-        var riskEntity = await _riskRepository.AddAsync(riskRequestDto.toEntity());
-        await _riskRepository.SaveChangesAsync();
+        var riskEntidade = riskRequestDto.toEntity();
+        var riskEntity = await _riskRepository.AddAsync(riskEntidade);
+        var boolean = await _riskRepository.SaveChangesAsync();
         return riskEntity.toDto();
     }
 

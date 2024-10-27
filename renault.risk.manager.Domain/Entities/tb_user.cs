@@ -12,5 +12,5 @@ public class tb_user
     public string usr_email { get; set; } 
     public DateTime usr_created_at { get; set; } 
     public DateTime? usr_updated_at { get; set; }
-    public IEnumerable<tb_risk> TbRisk { get; set; }
+    public virtual IEnumerable<tb_risk> TbRisk { get; set; }
 }

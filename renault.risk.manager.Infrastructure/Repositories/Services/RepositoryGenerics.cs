@@ -21,8 +21,8 @@ public class RepositoryGenerics<T> : IRepositoryGenerics<T> where T : class
 
     public async Task<T> AddAsync(T entity)
     {
-        await _riskManagerContext.Set<T>().AddAsync(entity);
-        return entity;
+        var response = await _riskManagerContext.Set<T>().AddAsync(entity);
+        return response.Entity;
     }
     
     public List<T> GetAll()

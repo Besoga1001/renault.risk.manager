@@ -28,8 +28,6 @@ public class RiskRequestDTO
     public string Jalon { get; set; }
     [JsonPropertyName("rskMetier")]
     public string Metier { get; set; }
-    [JsonPropertyName("rskSolutionId")]
-    public int SolutionId { get; set; }
     [JsonPropertyName("rskUserId")]
     public int UserId { get; set; }
 }

@@ -22,7 +22,7 @@ public class tb_solution
     public DateTime sln_resolution_date { get; set; }
     public DateTime sln_created_at { get; set; }
     public DateTime sln_updated_at { get; set; }
-    [ForeignKey("rsk_id")]
     public int sln_risk_id { get; set; }
+    [ForeignKey("sln_risk_id")]
     public virtual tb_risk TbRisk { get; set; }
 }

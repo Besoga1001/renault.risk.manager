@@ -6,7 +6,7 @@ namespace renault.risk.manager.Application.Extensions;
 
 public static class RiskExtensions
 {
-    public static tb_risk toEntity(this RiskRequestDTO riskRequestDto) => new tb_risk
+    public static tb_risk toEntity(this RiskRequestDTO riskRequestDto) => new ()
     {
         rsk_description = riskRequestDto.Description,
         rsk_type = riskRequestDto.Type,
@@ -21,11 +21,10 @@ public static class RiskExtensions
         rsk_jalon = riskRequestDto.Jalon,
         rsk_metier = riskRequestDto.Metier,
         rsk_created_at = DateTime.Now,
-        rsk_solution_id = riskRequestDto.SolutionId,
         rsk_usr_id = riskRequestDto.UserId
     };
 
-    public static RiskResponseDTO toDto(this tb_risk riskEntity) => new RiskResponseDTO
+    public static RiskResponseDTO toDto(this tb_risk riskEntity) => new ()
     {
         Description = riskEntity.rsk_description,
         Type = riskEntity.rsk_type,
@@ -41,7 +40,6 @@ public static class RiskExtensions
         Metier = riskEntity.rsk_metier,
         CreatedAt = riskEntity.rsk_created_at,
         UpdatedAt = riskEntity.rsk_updated_at,
-        SolutionId = riskEntity.rsk_solution_id,
         UserId = riskEntity.rsk_usr_id
     };
 }

@@ -1,6 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Web;
 using renault.risk.manager.Api.Middlewares;
 using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Application.Interfaces.Services;
@@ -10,8 +8,6 @@ using renault.risk.manager.Infrastructure.Repositories.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -39,12 +35,15 @@ builder.Services.AddAuthorization();
 // });
 
 builder.Services.AddDbContext<RiskManagerContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration
+        .GetConnectionString("DefaultConnection"))
+        .UseLazyLoadingProxies());
 
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ISolutionService, SolutionService>();
 builder.Services.AddScoped<ISolutionRepository, SolutionRepository>();
 builder.Services.AddScoped<IRiskService, RiskService>();
 builder.Services.AddScoped<IRiskRepository, RiskRepository>();

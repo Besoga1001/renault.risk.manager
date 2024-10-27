@@ -14,5 +14,6 @@ public class tb_project
     public List<int> pjc_metiers { get; set; }
     public DateTime pjc_created_at { get; set; }
     public DateTime pjc_updated_at { get; set; }
-    public IEnumerable<tb_risk> TbRisks { get; set; }
+    [InverseProperty("TbProject")]
+    public virtual ICollection<tb_risk> TbRisks { get; set; } = new List<tb_risk>();
 }
