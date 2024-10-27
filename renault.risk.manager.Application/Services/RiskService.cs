@@ -1,6 +1,7 @@
 using renault.risk.manager.Application.Extensions;
 using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Application.Interfaces.Services;
+using renault.risk.manager.Domain.Exceptions;
 using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
 
@@ -33,12 +34,15 @@ public class RiskService : IRiskService
 
     public async Task<List<RiskResponseDTO>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var riskEntities = await _riskRepository.GetAllAsync();
+        return riskEntities.Select(riskEntity => riskEntity.ToDto()).ToList();
     }
 
     public async Task<RiskResponseDTO> GetByIdAsync(int riskId)
     {
-        throw new NotImplementedException();
+        var riskEntity = await _riskRepository.GetByIdAsync(riskId)
+            ?? throw new NotFoundException($"No record found with the specified ID: {riskId}.");
+        return riskEntity.ToDto();
     }
 
 }
