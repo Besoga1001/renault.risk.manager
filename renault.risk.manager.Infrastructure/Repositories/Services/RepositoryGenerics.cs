@@ -48,7 +48,6 @@ public class RepositoryGenerics<T> : IRepositoryGenerics<T> where T : class
     public T Update(T entity)
     {
         _riskManagerContext.Set<T>().Update(entity);
-        _riskManagerContext.SaveChanges();
         return entity;
     }
     
