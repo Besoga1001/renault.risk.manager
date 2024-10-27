@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using renault.risk.manager.Domain.Enums;
 
 namespace renault.risk.manager.Domain.Entities;
 
@@ -22,6 +23,7 @@ public class tb_risk
     public string rsk_consequence { get; set; }
     public string rsk_jalon { get; set; }
     public string rsk_metier { get; set; }
+    public RiskStatusEnum rsk_status { get; set; }
     public DateTime rsk_created_at { get; set; }
     public DateTime rsk_updated_at { get; set; }
     public int rsk_usr_id { get; set; }

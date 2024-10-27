@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using renault.risk.manager.Domain.Enums;
 
 namespace renault.risk.manager.Domain.ResponseDTOs;
 
@@ -30,6 +31,8 @@ public class RiskResponseDTO
     public string Jalon { get; set; }
     [JsonPropertyName("rskMetier")]
     public string Metier { get; set; }
+    [JsonPropertyName("rskStatus")]
+    public string Status { get; set; }
     [JsonPropertyName("rskSolutionId")]
     public int SolutionId { get; set; }
     [JsonPropertyName("rskUserId")]

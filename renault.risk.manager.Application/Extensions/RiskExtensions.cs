@@ -1,4 +1,5 @@
 using renault.risk.manager.Domain.Entities;
+using renault.risk.manager.Domain.Enums;
 using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
 
@@ -20,6 +21,7 @@ public static class RiskExtensions
         rsk_consequence = riskInsertRequestDto.Consequence,
         rsk_jalon = riskInsertRequestDto.Jalon,
         rsk_metier = riskInsertRequestDto.Metier,
+        rsk_status = RiskStatusEnum.Active,
         rsk_created_at = DateTime.Now,
         rsk_usr_id = riskInsertRequestDto.UserId
     };
@@ -39,6 +41,7 @@ public static class RiskExtensions
         Consequence = riskEntity.rsk_consequence,
         Jalon = riskEntity.rsk_jalon,
         Metier = riskEntity.rsk_metier,
+        Status = riskEntity.rsk_status.ToString(),
         CreatedAt = riskEntity.rsk_created_at,
         UpdatedAt = riskEntity.rsk_updated_at,
         SolutionId = riskEntity.TbSolution?.sln_id ?? 0,
@@ -59,6 +62,14 @@ public static class RiskExtensions
         if (riskUpdateRequestDto.Consequence != null) riskEntity.rsk_consequence = riskUpdateRequestDto.Consequence;
         if (riskUpdateRequestDto.Jalon != null) riskEntity.rsk_jalon = riskUpdateRequestDto.Jalon;
         if (riskUpdateRequestDto.Metier != null) riskEntity.rsk_metier = riskUpdateRequestDto.Metier;
+        if (Enum.TryParse<RiskStatusEnum>(riskUpdateRequestDto.Status, true, out var status))
+        {
+            riskEntity.rsk_status = status;
+        }
+        else
+        {
+            throw new ArgumentException("Invalid status value.");
+        }
         if (riskUpdateRequestDto.UserId != null) riskEntity.rsk_usr_id = riskUpdateRequestDto.UserId.Value;
         riskEntity.rsk_updated_at = DateTime.Now;
     }
