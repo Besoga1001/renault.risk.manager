@@ -1,6 +1,7 @@
 using renault.risk.manager.Application.Extensions;
 using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Application.Interfaces.Services;
+using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.Exceptions;
 using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
@@ -25,7 +26,7 @@ public class RiskService : IRiskService
 
     public async Task<RiskResponseDTO> UpdateAsync(int riskId, RiskUpdateRequestDTO riskUpdateRequestDto)
     {
-        var riskEntity = await _riskRepository.GetByIdAsync(riskId) ?? throw new Exception();
+        var riskEntity = await GetEntityByIdAsync(riskId);
         riskEntity.Mapper(riskUpdateRequestDto);
         _riskRepository.Update(riskEntity);
         await _riskRepository.SaveChangesAsync();
@@ -40,9 +41,14 @@ public class RiskService : IRiskService
 
     public async Task<RiskResponseDTO> GetByIdAsync(int riskId)
     {
-        var riskEntity = await _riskRepository.GetByIdAsync(riskId)
-            ?? throw new NotFoundException($"No record found with the specified ID: {riskId}.");
+        var riskEntity = await GetEntityByIdAsync(riskId);
         return riskEntity.ToDto();
+    }
+
+    private async Task<tb_risk> GetEntityByIdAsync(int riskId)
+    {
+        return await _riskRepository.GetByIdAsync(riskId)
+            ?? throw new NotFoundException($"No record found with the specified ID: {riskId}.");
     }
 
 }
