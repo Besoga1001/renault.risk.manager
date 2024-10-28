@@ -41,12 +41,17 @@ builder.Services.AddDbContext<RiskManagerContext>(options =>
 
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 builder.Services.AddScoped<ISolutionService, SolutionService>();
 builder.Services.AddScoped<ISolutionRepository, SolutionRepository>();
+
 builder.Services.AddScoped<IRiskService, RiskService>();
 builder.Services.AddScoped<IRiskRepository, RiskRepository>();
+
+builder.Services.AddScoped<IHomeService, HomeService>();
 
 var app = builder.Build();
 
