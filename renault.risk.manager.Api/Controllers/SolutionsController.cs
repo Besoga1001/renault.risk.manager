@@ -10,6 +10,7 @@ public class SolutionsController
 {
     private readonly ISolutionService solutionService;
 
+    // ReSharper disable once ConvertToPrimaryConstructor
     public SolutionsController(ISolutionService solutionService)
     {
         this.solutionService = solutionService;

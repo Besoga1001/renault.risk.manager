@@ -4,7 +4,7 @@ using renault.risk.manager.Domain.Enums;
 
 namespace renault.risk.manager.Domain.Entities;
 
-public class tb_risk
+public class tb_risk //TODO "Add Enums Different Fields"
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

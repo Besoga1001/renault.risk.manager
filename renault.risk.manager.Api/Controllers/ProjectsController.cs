@@ -6,8 +6,16 @@ namespace renault.risk.manager.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ProjectsController(IProjectService projectService) : ControllerBase
+public class ProjectsController : ControllerBase
 {
+    private readonly IProjectService projectService;
+
+    // ReSharper disable once ConvertToPrimaryConstructor
+    public ProjectsController(IProjectService projectService)
+    {
+        this.projectService = projectService;
+    }
+
     [HttpPost]
     public async Task<ObjectResult> Insert(ProjectRequestDTO projectRequestDto)
     {

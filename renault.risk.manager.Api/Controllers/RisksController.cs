@@ -10,6 +10,7 @@ public class RisksController
 {
     private readonly IRiskService riskService;
 
+    // ReSharper disable once ConvertToPrimaryConstructor
     public RisksController(IRiskService riskService)
     {
         this.riskService = riskService;

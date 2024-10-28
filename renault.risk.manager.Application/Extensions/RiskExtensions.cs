@@ -21,7 +21,7 @@ public static class RiskExtensions
         rsk_consequence = riskInsertRequestDto.Consequence,
         rsk_jalon = riskInsertRequestDto.Jalon,
         rsk_metier = riskInsertRequestDto.Metier,
-        rsk_status = RiskStatusEnum.Active,
+        rsk_status = RiskStatusEnum.Open,
         rsk_created_at = DateTime.Now,
         rsk_usr_id = riskInsertRequestDto.UserId
     };

@@ -11,6 +11,7 @@ public class UsersController : ControllerBase
 {
     private readonly IUserService _userService;
 
+    // ReSharper disable once ConvertToPrimaryConstructor
     public UsersController(IUserService userService)
     {
         _userService = userService;
