@@ -20,4 +20,10 @@ public class HomeController : ControllerBase
     {
         return new ObjectResult(await homeService.GetInfoCards());
     }
+
+    [HttpGet("graphic")]
+    public async Task<ObjectResult> GetNumberOfRisksPerProject()
+    {
+        return new ObjectResult(await homeService.GetNumberOfRisksPerProject());
+    }
 }

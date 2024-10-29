@@ -8,11 +8,13 @@ namespace renault.risk.manager.Application.Services;
 public class HomeService : IHomeService
 {
     private readonly IRiskRepository riskRepository;
+    private readonly IProjectRepository projectRepository;
 
     // ReSharper disable once ConvertToPrimaryConstructor
-    public HomeService(IRiskRepository riskRepository)
+    public HomeService(IRiskRepository riskRepository, IProjectRepository projectRepository)
     {
         this.riskRepository = riskRepository;
+        this.projectRepository = projectRepository;
     }
 
     public async Task<CardsHomeResponseDTO> GetInfoCards()
@@ -31,6 +33,21 @@ public class HomeService : IHomeService
             NoResolvedMonthlyRisks = riskEntities.GetMonthRisks(false, firstMonthDay, lastMonthDay),
             TotalCriticalRisks = riskEntities.GetTotalCriticalRisks()
         };
+    }
+
+    public async Task<Dictionary<string, int>> GetNumberOfRisksPerProject()
+    {
+        var riskEntities = await riskRepository.GetAllAsync();
+
+        var projectNames = (await projectRepository.GetAllAsync())
+            .ToDictionary(p => p.pjc_id, p => p.pjc_name);
+
+        return riskEntities
+            .GroupBy(r => r.rsk_project_id)
+            .ToDictionary(
+                g => projectNames.GetValueOrDefault(g.Key, "Project Not Found."),
+                g => g.Count()
+            );
     }
 
 
