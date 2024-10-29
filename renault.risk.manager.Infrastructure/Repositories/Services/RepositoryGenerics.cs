@@ -21,8 +21,8 @@ public class RepositoryGenerics<T> : IRepositoryGenerics<T> where T : class
 
     public async Task<T> AddAsync(T entity)
     {
-        await _riskManagerContext.Set<T>().AddAsync(entity);
-        return entity;
+        var response = await _riskManagerContext.Set<T>().AddAsync(entity);
+        return response.Entity;
     }
     
     public List<T> GetAll()
@@ -66,30 +66,14 @@ public class RepositoryGenerics<T> : IRepositoryGenerics<T> where T : class
         }
     }
 
-    public bool SaveChange()
+    public void SaveChange()
     {
-        try
-        {
-            _riskManagerContext.SaveChanges();
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
+        _riskManagerContext.SaveChanges();
     }
 
-    public async Task<bool> SaveChangesAsync()
+    public async Task SaveChangesAsync()
     {
-        try
-        {
-            await _riskManagerContext.SaveChangesAsync();
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
+        await _riskManagerContext.SaveChangesAsync();
     }
     
 }

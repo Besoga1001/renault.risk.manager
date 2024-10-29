@@ -10,6 +10,6 @@ public interface IRepositoryGenerics<T>
     Task<T?> GetByIdAsync(int id);
     T Update(T entity);
     bool Remove(int id);
-    bool SaveChange();
-    Task<bool> SaveChangesAsync();
+    void SaveChange();
+    Task SaveChangesAsync();
 }
