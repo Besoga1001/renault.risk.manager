@@ -1,5 +1,4 @@
 using renault.risk.manager.Domain.Entities;
-using renault.risk.manager.Domain.Enums;
 using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
 
@@ -21,18 +20,8 @@ public static class ProjectExtensions
         projectEntity.pjc_id,
         projectEntity.pjc_name,
         projectEntity.pjc_img_path,
-        projectEntity.pjc_jalons.GetJalonsEnums(),
-        projectEntity.pjc_metiers.GetMetiersEnums()
+        projectEntity.pjc_jalons,
+        projectEntity.pjc_metiers
     );
-
-    private static List<string> GetJalonsEnums(this IEnumerable<int> jalonsCodes)
-    { 
-        return jalonsCodes.Select(item => (JalonsEnum)item).Select(jalonsEnum => jalonsEnum.ToString()).ToList();
-    }
-    
-    private static List<string> GetMetiersEnums(this IEnumerable<int> metiersCodes)
-    {
-        return metiersCodes.Select(item => (MetiersEnum)item).Select(metiersEnum => metiersEnum.ToString()).ToList();
-    }
 
 }

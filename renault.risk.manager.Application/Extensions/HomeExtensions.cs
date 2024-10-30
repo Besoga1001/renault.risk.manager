@@ -5,7 +5,7 @@ namespace renault.risk.manager.Application.Extensions;
 
 public static class HomeExtensions
 {
-    public static int GetWeelkyRisks(this List<tb_risk> riskEntities, DateTime firstWeekDay, DateTime lastWeekDay)
+    public static int GetWeeklyRisks(this List<tb_risk> riskEntities, DateTime firstWeekDay, DateTime lastWeekDay)
     {
         return riskEntities.Count(y => y.rsk_alert_date >= firstWeekDay && y.rsk_alert_date <= lastWeekDay);
     }
@@ -21,7 +21,7 @@ public static class HomeExtensions
 
     public static int GetTotalCriticalRisks(this List<tb_risk> riskEntities)
     {
-        return riskEntities.Count(y => y.rsk_classification == ""); //TODO "Add Enum to Compare"
+        return riskEntities.Count(y => y.rsk_classification == RiskClassificationLevelsEnum.K1);
     }
 
 

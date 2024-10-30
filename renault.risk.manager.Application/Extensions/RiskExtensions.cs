@@ -1,6 +1,7 @@
 using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.Enums;
 using renault.risk.manager.Domain.RequestDTOs;
+using renault.risk.manager.Domain.RequestDTOs.RiskDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
 
 namespace renault.risk.manager.Application.Extensions;
@@ -41,7 +42,7 @@ public static class RiskExtensions
         Consequence = riskEntity.rsk_consequence,
         Jalon = riskEntity.rsk_jalon,
         Metier = riskEntity.rsk_metier,
-        Status = riskEntity.rsk_status.ToString(),
+        Status = riskEntity.rsk_status,
         CreatedAt = riskEntity.rsk_created_at,
         UpdatedAt = riskEntity.rsk_updated_at,
         SolutionId = riskEntity.TbSolution?.sln_id ?? 0,
@@ -50,27 +51,34 @@ public static class RiskExtensions
 
     public static void Mapper(this tb_risk riskEntity, RiskUpdateRequestDTO riskUpdateRequestDto)
     {
-        if (riskUpdateRequestDto.Description != null) riskEntity.rsk_description = riskUpdateRequestDto.Description;
-        if (riskUpdateRequestDto.Type != null) riskEntity.rsk_type = riskUpdateRequestDto.Type;
-        if (riskUpdateRequestDto.Probability != null) riskEntity.rsk_probability = riskUpdateRequestDto.Probability;
-        if (riskUpdateRequestDto.ResponsibleArea != null) riskEntity.rsk_responsible_area = riskUpdateRequestDto.ResponsibleArea;
-        if (riskUpdateRequestDto.Classification != null) riskEntity.rsk_classification = riskUpdateRequestDto.Classification;
-        if (riskUpdateRequestDto.ProjectId != null) riskEntity.rsk_project_id = riskUpdateRequestDto.ProjectId.Value;
-        if (riskUpdateRequestDto.AlertDate != null) riskEntity.rsk_alert_date = riskUpdateRequestDto.AlertDate.Value;
-        if (riskUpdateRequestDto.Impact != null) riskEntity.rsk_impact = riskUpdateRequestDto.Impact;
-        if (riskUpdateRequestDto.Plant != null) riskEntity.rsk_plant = riskUpdateRequestDto.Plant;
-        if (riskUpdateRequestDto.Consequence != null) riskEntity.rsk_consequence = riskUpdateRequestDto.Consequence;
-        if (riskUpdateRequestDto.Jalon != null) riskEntity.rsk_jalon = riskUpdateRequestDto.Jalon;
-        if (riskUpdateRequestDto.Metier != null) riskEntity.rsk_metier = riskUpdateRequestDto.Metier;
-        if (Enum.TryParse<RiskStatusEnum>(riskUpdateRequestDto.Status, true, out var status))
-        {
-            riskEntity.rsk_status = status;
-        }
-        else
-        {
-            throw new ArgumentException("Invalid status value.");
-        }
-        if (riskUpdateRequestDto.UserId != null) riskEntity.rsk_usr_id = riskUpdateRequestDto.UserId.Value;
+        if (riskUpdateRequestDto.Description != null)
+            riskEntity.rsk_description = riskUpdateRequestDto.Description;
+        if (riskUpdateRequestDto.Type != null)
+            riskEntity.rsk_type = riskUpdateRequestDto.Type.Value;
+        if (riskUpdateRequestDto.Probability != null)
+            riskEntity.rsk_probability = riskUpdateRequestDto.Probability.Value;
+        if (riskUpdateRequestDto.ResponsibleArea != null)
+            riskEntity.rsk_responsible_area = riskUpdateRequestDto.ResponsibleArea.Value;
+        if (riskUpdateRequestDto.Classification != null)
+            riskEntity.rsk_classification = riskUpdateRequestDto.Classification.Value;
+        if (riskUpdateRequestDto.ProjectId != null)
+            riskEntity.rsk_project_id = riskUpdateRequestDto.ProjectId.Value;
+        if (riskUpdateRequestDto.AlertDate != null)
+            riskEntity.rsk_alert_date = riskUpdateRequestDto.AlertDate.Value;
+        if (riskUpdateRequestDto.Impact != null)
+            riskEntity.rsk_impact = riskUpdateRequestDto.Impact.Value;
+        if (riskUpdateRequestDto.Plant != null)
+            riskEntity.rsk_plant = riskUpdateRequestDto.Plant.Value;
+        if (riskUpdateRequestDto.Consequence != null)
+            riskEntity.rsk_consequence = riskUpdateRequestDto.Consequence;
+        if (riskUpdateRequestDto.Jalon != null)
+            riskEntity.rsk_jalon = riskUpdateRequestDto.Jalon.Value;
+        if (riskUpdateRequestDto.Metier != null)
+            riskEntity.rsk_metier = riskUpdateRequestDto.Metier.Value;
+        if (riskUpdateRequestDto.Status != null)
+            riskEntity.rsk_status = riskUpdateRequestDto.Status.Value;
+        if (riskUpdateRequestDto.UserId != null)
+            riskEntity.rsk_usr_id = riskUpdateRequestDto.UserId.Value;
         riskEntity.rsk_updated_at = DateTime.Now;
     }
 }

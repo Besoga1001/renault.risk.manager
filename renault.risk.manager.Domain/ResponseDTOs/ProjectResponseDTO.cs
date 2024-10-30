@@ -6,6 +6,6 @@ public record ProjectResponseDTO(
     int id,
     string name,
     string imgPath,
-    IEnumerable<string> jalons,
-    IEnumerable<string> metiers
+    IEnumerable<JalonsEnum> jalons,
+    IEnumerable<MetiersEnum> metiers
 );

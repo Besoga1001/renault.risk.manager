@@ -1,4 +1,5 @@
 using renault.risk.manager.Domain.RequestDTOs;
+using renault.risk.manager.Domain.RequestDTOs.RiskDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
 
 namespace renault.risk.manager.Application.Interfaces.Services;

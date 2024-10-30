@@ -1,35 +1,36 @@
 using System.Text.Json.Serialization;
+using renault.risk.manager.Domain.Enums;
 
-namespace renault.risk.manager.Domain.RequestDTOs;
+namespace renault.risk.manager.Domain.RequestDTOs.RiskDTOs;
 
 public class RiskUpdateRequestDTO
 {
     [JsonPropertyName("rskDescription")]
     public string? Description { get; set; }
     [JsonPropertyName("rskType")]
-    public string? Type { get; set; }
+    public RiskTypesEnum? Type { get; set; }
     [JsonPropertyName("rskProbability")]
-    public string? Probability { get; set; }
+    public RiskFieldLevelsEnum? Probability { get; set; }
     [JsonPropertyName("rskResponsibleArea")]
-    public string? ResponsibleArea { get; set; }
+    public RiskResponsibleAreasEnum? ResponsibleArea { get; set; }
     [JsonPropertyName("rskClassification")]
-    public string? Classification { get; set; }
+    public RiskClassificationLevelsEnum? Classification { get; set; }
     [JsonPropertyName("rskProjectId")]
     public int? ProjectId { get; set; } // FK
     [JsonPropertyName("rskAlertDate")]
     public DateTime? AlertDate { get; set; }
     [JsonPropertyName("rskImpact")]
-    public string? Impact { get; set; }
+    public RiskFieldLevelsEnum? Impact { get; set; }
     [JsonPropertyName("rskPlant")]
-    public string? Plant { get; set; }
+    public RiskPlantsEnum? Plant { get; set; }
     [JsonPropertyName("rskConsequence")]
     public string? Consequence { get; set; }
     [JsonPropertyName("rskJalon")]
-    public string? Jalon { get; set; }
+    public JalonsEnum? Jalon { get; set; }
     [JsonPropertyName("rskMetier")]
-    public string? Metier { get; set; }
+    public MetiersEnum? Metier { get; set; }
     [JsonPropertyName("rskStatus")]
-    public string? Status { get; set; }
+    public RiskStatusEnum? Status { get; set; }
     [JsonPropertyName("rskUserId")]
     public int? UserId { get; set; }
 }

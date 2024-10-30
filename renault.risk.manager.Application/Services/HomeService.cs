@@ -28,7 +28,7 @@ public class HomeService : IHomeService
 
         return new CardsHomeResponseDTO
         {
-            WeeklyRisk = riskEntities.GetWeelkyRisks(firstWeekDay, lastWeekDay),
+            WeeklyRisk = riskEntities.GetWeeklyRisks(firstWeekDay, lastWeekDay),
             ResolvedMonthlyRisks = riskEntities.GetMonthRisks(true, firstMonthDay, lastMonthDay),
             NoResolvedMonthlyRisks = riskEntities.GetMonthRisks(false, firstMonthDay, lastMonthDay),
             TotalCriticalRisks = riskEntities.GetTotalCriticalRisks()
