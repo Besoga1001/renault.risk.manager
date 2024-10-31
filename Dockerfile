@@ -6,6 +6,8 @@ EXPOSE 5100
 EXPOSE 5101
 
 ENV ASPNETCORE_HTTP_PORTS=5100
+ENV TZ=America/Sao_Paulo
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
