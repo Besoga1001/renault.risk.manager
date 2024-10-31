@@ -13,6 +13,7 @@ public class RiskService : IRiskService
 {
     private readonly IRiskRepository _riskRepository;
 
+    // ReSharper disable once ConvertToPrimaryConstructor
     public RiskService(IRiskRepository riskRepository)
     {
         _riskRepository = riskRepository;
@@ -23,6 +24,13 @@ public class RiskService : IRiskService
         var riskEntity = await _riskRepository.AddAsync(riskInsertRequestDto.ToEntity());
         await _riskRepository.SaveChangesAsync();
         return riskEntity.ToDto();
+    }
+
+    public async Task InsertRangeAsync(List<RiskInsertRequestDTO> riskInsertRequestDtos)
+    {
+        var list = riskInsertRequestDtos.Select(x => x.ToEntity()).ToList();
+        await _riskRepository.AddRangeAsync(list);
+        await _riskRepository.SaveChangesAsync();
     }
 
     public async Task<RiskResponseDTO> UpdateAsync(int riskId, RiskUpdateRequestDTO riskUpdateRequestDto)

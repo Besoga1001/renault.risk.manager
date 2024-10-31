@@ -6,43 +6,43 @@ namespace renault.risk.manager.Domain.RequestDTOs;
 
 public class RiskInsertRequestDTO
 {
+    [Required]
     [JsonPropertyName("rskDescription")]
-    [Required]
     public string Description { get; set; }
+    [Required]
     [JsonPropertyName("rskType")]
-    [Required]
     public RiskTypesEnum Type { get; set; }
+    [Required]
     [JsonPropertyName("rskProbability")]
-    [Required]
     public RiskFieldLevelsEnum Probability { get; set; }
+    [Required]
     [JsonPropertyName("rskResponsibleArea")]
-    [Required]
     public RiskResponsibleAreasEnum ResponsibleArea { get; set; }
+    [Required]
     [JsonPropertyName("rskClassification")]
-    [Required]
     public RiskClassificationLevelsEnum Classification { get; set; }
+    [Required]
     [JsonPropertyName("rskProjectId")]
-    [Required]
     public int ProjectId { get; set; } // FK
+    [Required]
     [JsonPropertyName("rskAlertDate")]
-    [Required]
     public DateTime AlertDate { get; set; }
+    [Required]
     [JsonPropertyName("rskImpact")]
-    [Required]
     public RiskFieldLevelsEnum Impact { get; set; }
+    [Required]
     [JsonPropertyName("rskPlant")]
-    [Required]
     public RiskPlantsEnum Plant { get; set; }
+    [Required]
     [JsonPropertyName("rskConsequence")]
-    [Required]
     public string Consequence { get; set; }
+    [Required]
     [JsonPropertyName("rskJalon")]
-    [Required]
     public JalonsEnum Jalon { get; set; }
+    [Required]
     [JsonPropertyName("rskMetier")]
-    [Required]
     public MetiersEnum Metier { get; set; }
-    [JsonPropertyName("rskUserId")]
     [Required]
+    [JsonPropertyName("rskUserId")]
     public int UserId { get; set; }
 }

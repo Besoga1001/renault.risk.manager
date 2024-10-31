@@ -4,6 +4,8 @@ namespace renault.risk.manager.Domain.Enums;
 
 public enum RiskFieldLevelsEnum
 {
+    [Description("Desconhecido")]
+    Unknow = 6,
     [Description("Muito Baixo")]
     VeryLow = 1,
     [Description("Baixo")]
