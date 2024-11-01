@@ -12,6 +12,8 @@ public class RiskManagerContext : DbContext
     }
     
     //DbSets
+    public DbSet<tb_jalon> tb_jalons { get; set; }
+    public DbSet<tb_metier> tb_metiers { get; set; }
     public DbSet<tb_project> tb_projects { get; set; }
     public DbSet<tb_risk> tb_risks { get; set; }
     public DbSet<tb_solution> tb_solutions { get; set; }
