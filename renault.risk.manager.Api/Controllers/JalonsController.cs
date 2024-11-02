@@ -23,9 +23,9 @@ public class JalonsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ObjectResult> GetAll([FromQuery] string? name)
+    public async Task<ObjectResult> GetAll([FromQuery] string? description)
     {
-        return new OkObjectResult(await _jalonService.GetAllAsync(name));
+        return new OkObjectResult(await _jalonService.GetAllAsync(description));
     }
 
     [HttpGet("{id:int}")]

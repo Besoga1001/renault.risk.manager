@@ -31,9 +31,9 @@ public class JalonService : IJalonService
         return jalonEntity.ToDto();
     }
 
-    public async Task<List<JalonResponseDTO>> GetAllAsync(string? name)
+    public async Task<List<JalonResponseDTO>> GetAllAsync(string? jalonDescription)
     {
-        var jalonEntities = await _jalonRepository.GetAllAsync();
+        var jalonEntities = await _jalonRepository.GetAllAsync(jalonDescription);
         return jalonEntities.Select(j => j.ToDto()).ToList();
     }
 

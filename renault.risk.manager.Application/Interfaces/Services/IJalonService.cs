@@ -7,6 +7,6 @@ public interface IJalonService
 {
     Task<JalonResponseDTO> Insert(JalonRequestDTO jalonRequestDto);
     Task<JalonResponseDTO> GetByIdAsync(int jalonId);
-    Task<List<JalonResponseDTO>> GetAllAsync(string? jalonName);
+    Task<List<JalonResponseDTO>> GetAllAsync(string? jalonDescription);
     Task<string> Delete(int jalonId);
 }

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Infrastructure.Context;
@@ -13,5 +14,18 @@ public class JalonRepository : RepositoryGenerics<tb_jalon>, IJalonRepository
     {
         _riskManagerContext = context;
     }
+
+    public async Task<List<tb_jalon>> GetAllAsync(string? jalonDescription)
+    {
+        var query = _riskManagerContext.tb_jalons.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(jalonDescription))
+        {
+            query = query.Where(j => j.jal_description.ToUpper().Contains(jalonDescription.ToUpper()));
+        }
+
+        return await query.ToListAsync();
+    }
+
 
 }

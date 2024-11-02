@@ -8,7 +8,7 @@ public static class JalonExtensions
 {
     public static tb_jalon ToEntity(this JalonRequestDTO jalonRequestDto) => new ()
     {
-        jal_description = jalonRequestDto.Description,
+        jal_description = jalonRequestDto.JalDescription,
         jal_status = true,
         jal_created_at = DateTime.Now
     };

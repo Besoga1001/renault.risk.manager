@@ -21,7 +21,7 @@ public class ProjectRepository : RepositoryGenerics<tb_project>, IProjectReposit
         
         if (!string.IsNullOrWhiteSpace(name))
         {
-            query = query.Where(r => r.pjc_name.Contains(name));
+            query = query.Where(r => r.pjc_name.ToUpper().Contains(name.ToUpper()));
         }
         
         return await query.ToListAsync();
