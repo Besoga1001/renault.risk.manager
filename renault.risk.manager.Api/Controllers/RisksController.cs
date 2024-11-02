@@ -37,9 +37,9 @@ public class RisksController
     }
 
     [HttpGet]
-    public async Task<ObjectResult> GetAll()
+    public async Task<ObjectResult> GetAll([FromQuery] int userId)
     {
-        return new OkObjectResult(await riskService.GetAllAsync());
+        return new OkObjectResult(await riskService.GetAllAsync(userId));
     }
 
     [HttpGet("{id}")]

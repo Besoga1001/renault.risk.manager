@@ -9,6 +9,6 @@ public interface IRiskService
     Task<RiskResponseDTO> InsertAsync(RiskInsertRequestDTO riskInsertRequestDto);
     Task InsertRangeAsync(List<RiskInsertRequestDTO> riskInsertRequestDtos);
     Task<RiskResponseDTO> UpdateAsync(int riskId, RiskUpdateRequestDTO riskUpdateRequestDto);
-    Task<List<RiskResponseDTO>> GetAllAsync();
+    Task<List<RiskResponseDTO>> GetAllAsync(int userId);
     Task<RiskResponseDTO> GetByIdAsync(int riskId);
 }

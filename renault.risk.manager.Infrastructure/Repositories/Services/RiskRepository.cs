@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.RequestDTOs;
@@ -18,5 +19,17 @@ public class RiskRepository : RepositoryGenerics<tb_risk>, IRiskRepository
     public async Task AddRangeAsync(List<tb_risk> riskEntities)
     {
         await _riskManagerContext.tb_risks.AddRangeAsync(riskEntities);
+    }
+
+    public async Task<List<tb_risk>> GetAllAsync(int? userId)
+    {
+        var query = _riskManagerContext.tb_risks.AsQueryable();
+
+        if (userId != null)
+        {
+            query = query.Where(r => r.rsk_usr_id == userId);
+        }
+
+        return await query.ToListAsync();
     }
 }

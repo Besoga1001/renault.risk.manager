@@ -6,4 +6,5 @@ namespace renault.risk.manager.Application.Interfaces.Repositories;
 public interface IRiskRepository : IRepositoryGenerics<tb_risk>
 {
     Task AddRangeAsync(List<tb_risk> riskEntities);
+    Task<List<tb_risk>> GetAllAsync(int? userId);
 }

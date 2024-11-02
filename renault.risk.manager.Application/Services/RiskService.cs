@@ -42,9 +42,9 @@ public class RiskService : IRiskService
         return riskEntity.ToDto();
     }
 
-    public async Task<List<RiskResponseDTO>> GetAllAsync()
+    public async Task<List<RiskResponseDTO>> GetAllAsync(int userId)
     {
-        var riskEntities = await _riskRepository.GetAllAsync();
+        var riskEntities = await _riskRepository.GetAllAsync(userId);
         return riskEntities.Select(riskEntity => riskEntity.ToDto()).ToList();
     }
 
