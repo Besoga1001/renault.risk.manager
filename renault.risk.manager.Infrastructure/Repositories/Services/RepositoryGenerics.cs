@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using renault.risk.manager.Application.Interfaces.Repositories;
+using renault.risk.manager.Domain.Exceptions;
 using renault.risk.manager.Infrastructure.Context;
 
 namespace renault.risk.manager.Infrastructure.Repositories.Services;
@@ -32,7 +33,12 @@ public class RepositoryGenerics<T> : IRepositoryGenerics<T> where T : class
 
     public async Task<List<T>> GetAllAsync()
     {
-        return await _riskManagerContext.Set<T>().ToListAsync();
+        var response = await _riskManagerContext.Set<T>().ToListAsync();
+        if (response.Count == 0)
+        {
+            throw new NotFoundException($"No records found.");
+        }
+        return response;
     }
     
     public T? GetById(int id)
@@ -40,9 +46,14 @@ public class RepositoryGenerics<T> : IRepositoryGenerics<T> where T : class
         return _riskManagerContext.Set<T>().Find(id);
     }
 
-    public async Task<T?> GetByIdAsync(int id)
+    public async Task<T> GetByIdAsync(int id)
     {
-        return await _riskManagerContext.Set<T>().FindAsync(id);
+        var response = await _riskManagerContext.Set<T>().FindAsync(id);
+        if (response == null)
+        {
+            throw new NotFoundException($"No record found with the specified ID.");
+        }
+        return response;
     }
 
     public T Update(T entity)
@@ -53,11 +64,11 @@ public class RepositoryGenerics<T> : IRepositoryGenerics<T> where T : class
     
     public bool Remove(int id)
     {
-        var entity = GetById(id);
-        if (entity == null) return false;
+        var response = GetById(id);
+        if (response == null) throw new NotFoundException($"No record found with the specified ID.");
         try
         {
-            _riskManagerContext.Set<T>().Remove(entity);
+            _riskManagerContext.Set<T>().Remove(response);
             return true;
         }
         catch

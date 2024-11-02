@@ -7,7 +7,7 @@ public interface IRepositoryGenerics<T>
     List<T> GetAll();
     Task<List<T>> GetAllAsync();
     T? GetById(int id);
-    Task<T?> GetByIdAsync(int id);
+    Task<T> GetByIdAsync(int id);
     T Update(T entity);
     bool Remove(int id);
     void SaveChange();
