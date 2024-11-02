@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using renault.risk.manager.Api.Middlewares;
 using renault.risk.manager.Application.Interfaces.Repositories;
@@ -11,11 +12,23 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    });
 
 builder.Services.Configure<RouteOptions>(options =>
 {
     options.LowercaseUrls = true;
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAny",
+        policy => policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 });
 
 // MSAL Tokens Configuration
@@ -38,6 +51,9 @@ builder.Services.AddDbContext<RiskManagerContext>(options =>
     options.UseNpgsql(builder.Configuration
         .GetConnectionString("DefaultConnection"))
         .UseLazyLoadingProxies());
+
+builder.Services.AddScoped<IJalonService, JalonService>();
+builder.Services.AddScoped<IJalonRepository, JalonRepository>();
 
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
@@ -65,6 +81,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseCors("AllowAny");
 app.UseHttpsRedirection();
 app.UseMiddleware<RiskManagerExceptionMiddleware>();
 app.MapControllers();
