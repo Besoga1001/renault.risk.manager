@@ -1,6 +1,9 @@
 namespace renault.risk.manager.Domain.ResponseDTOs;
 
-public record JalonResponseDTO(int JalId, string JalName, bool JalStatus, DateTime JalCreatedAt, DateTime JalUpdatedAt)
-{
-
-}
+public record JalonResponseDTO(
+    int JalId,
+    string JalDescription,
+    bool JalStatus,
+    DateTime JalCreatedAt,
+    DateTime JalUpdatedAt
+);

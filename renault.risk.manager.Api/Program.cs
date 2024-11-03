@@ -52,6 +52,9 @@ builder.Services.AddDbContext<RiskManagerContext>(options =>
         .GetConnectionString("DefaultConnection"))
         .UseLazyLoadingProxies());
 
+builder.Services.AddScoped<IMetierService, MetierService>();
+builder.Services.AddScoped<IMetierRepository, MetierRepository>();
+
 builder.Services.AddScoped<IJalonService, JalonService>();
 builder.Services.AddScoped<IJalonRepository, JalonRepository>();
 

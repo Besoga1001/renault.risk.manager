@@ -1,8 +1,6 @@
-using System.Data;
 using renault.risk.manager.Application.Extensions;
 using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Application.Interfaces.Services;
-using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
 
