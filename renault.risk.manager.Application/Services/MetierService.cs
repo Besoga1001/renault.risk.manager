@@ -31,7 +31,7 @@ public class MetierService : IMetierService
 
     public async Task<List<MetierResponseDTO>> GetAllAsync(string? metierDescription)
     {
-        var metierEntities = await _metierRepository.GetAllAsync(metierDescription);
+        var metierEntities = await _metierRepository.GetAllAsync(null, metierDescription);
         return metierEntities.Select(j => j.ToDto()).ToList();
     }
 

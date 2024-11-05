@@ -1,3 +1,4 @@
+using renault.risk.manager.Domain.FiltersDTOs;
 using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.RequestDTOs.RiskDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
@@ -9,6 +10,6 @@ public interface IRiskService
     Task<RiskResponseDTO> InsertAsync(RiskInsertRequestDTO riskInsertRequestDto);
     Task InsertRangeAsync(List<RiskInsertRequestDTO> riskInsertRequestDtos);
     Task<RiskResponseDTO> UpdateAsync(int riskId, RiskUpdateRequestDTO riskUpdateRequestDto);
-    Task<List<RiskResponseDTO>> GetAllAsync(int userId);
+    Task<List<RiskResponseDTO>> GetAllAsync(RiskFiltersDTO riskFiltersDto);
     Task<RiskResponseDTO> GetByIdAsync(int riskId);
 }

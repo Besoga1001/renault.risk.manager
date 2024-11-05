@@ -3,6 +3,7 @@ using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.Exceptions;
+using renault.risk.manager.Domain.FiltersDTOs;
 using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.RequestDTOs.RiskDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
@@ -11,11 +12,18 @@ namespace renault.risk.manager.Application.Services;
 
 public class RiskService : IRiskService
 {
+    private readonly IMetierRepository _metierRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IRiskRepository _riskRepository;
 
     // ReSharper disable once ConvertToPrimaryConstructor
-    public RiskService(IRiskRepository riskRepository)
+    public RiskService(
+        IMetierRepository metierRepository,
+        IUserRepository userRepository,
+        IRiskRepository riskRepository)
     {
+        _metierRepository = metierRepository;
+        _userRepository = userRepository;
         _riskRepository = riskRepository;
     }
 
@@ -42,9 +50,13 @@ public class RiskService : IRiskService
         return riskEntity.ToDto();
     }
 
-    public async Task<List<RiskResponseDTO>> GetAllAsync(int userId)
+    public async Task<List<RiskResponseDTO>> GetAllAsync(RiskFiltersDTO riskFiltersDto)
     {
-        var riskEntities = await _riskRepository.GetAllAsync(userId);
+        if (riskFiltersDto.MetierId != null)
+        {
+            var metierEntities = await _metierRepository.GetAllAsync(null, null);
+        }
+        var riskEntities = await _riskRepository.GetAllAsync(riskFiltersDto);
         return riskEntities.Select(riskEntity => riskEntity.ToDto()).ToList();
     }
 

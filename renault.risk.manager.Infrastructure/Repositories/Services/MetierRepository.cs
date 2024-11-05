@@ -15,9 +15,14 @@ public class MetierRepository : RepositoryGenerics<tb_metier>, IMetierRepository
         _riskManagerContext = context;
     }
 
-    public async Task<List<tb_metier>> GetAllAsync(string? metierDescription)
+    public async Task<List<tb_metier>> GetAllAsync(int? userId, string? metierDescription)
     {
         var query = _riskManagerContext.tb_metiers.AsQueryable();
+
+        if (userId != null)
+        {
+            query = query.Where(j => j.TbUsers.Any(u => u.usr_id == userId));
+        }
 
         if (!string.IsNullOrWhiteSpace(metierDescription))
         {

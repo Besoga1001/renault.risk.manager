@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using renault.risk.manager.Application.Interfaces.Services;
+using renault.risk.manager.Domain.FiltersDTOs;
 using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.RequestDTOs.RiskDTOs;
 
 namespace renault.risk.manager.Api.Controllers;
 
+// [Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class RisksController
@@ -37,9 +39,9 @@ public class RisksController
     }
 
     [HttpGet]
-    public async Task<ObjectResult> GetAll([FromQuery] int userId)
+    public async Task<ObjectResult> GetAll([FromQuery] RiskFiltersDTO riskFiltersDto)
     {
-        return new OkObjectResult(await riskService.GetAllAsync(userId));
+        return new OkObjectResult(await riskService.GetAllAsync(riskFiltersDto));
     }
 
     [HttpGet("{id}")]

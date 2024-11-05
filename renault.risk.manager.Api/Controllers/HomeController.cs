@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using renault.risk.manager.Application.Interfaces.Services;
 
 namespace renault.risk.manager.Api.Controllers;
 
+// [Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class HomeController : ControllerBase

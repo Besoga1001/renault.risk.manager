@@ -1,5 +1,8 @@
 using System.Text.Json;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web;
+using Microsoft.OpenApi.Models;
 using renault.risk.manager.Api.Middlewares;
 using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Application.Interfaces.Services;
@@ -9,8 +12,36 @@ using renault.risk.manager.Infrastructure.Repositories.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Minha API", Version = "v1" });
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "Insira o token JWT no formato: Bearer {seu_token}",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -32,20 +63,10 @@ builder.Services.AddCors(options =>
 });
 
 // MSAL Tokens Configuration
-
-/*
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 builder.Services.AddAuthorization();
-
-*/
-
-// builder.Services.AddAuthorization(options =>
-// {
-//     options.AddPolicy("ApiAccess", policy =>
-//         policy.RequireClaim("scp", "api.Read"));
-// });
 
 builder.Services.AddDbContext<RiskManagerContext>(options =>
     options.UseNpgsql(builder.Configuration
@@ -78,11 +99,14 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Minha API v1");
+    });;
 }
 
-app.UseAuthentication();
-app.UseAuthorization();
+// app.UseAuthentication();
+// app.UseAuthorization();
 
 app.UseCors("AllowAny");
 app.UseHttpsRedirection();
