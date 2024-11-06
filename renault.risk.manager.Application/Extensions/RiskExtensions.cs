@@ -1,8 +1,10 @@
+using renault.risk.manager.Application.Helpers;
 using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.Enums;
 using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.RequestDTOs.RiskDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
+using renault.risk.manager.Domain.ResponseDTOs.Risk;
 
 namespace renault.risk.manager.Application.Extensions;
 
@@ -31,18 +33,18 @@ public static class RiskExtensions
     {
         Id = riskEntity.rsk_id,
         Description = riskEntity.rsk_description,
-        Type = riskEntity.rsk_type,
-        Probability = riskEntity.rsk_probability,
-        ResponsibleArea = riskEntity.rsk_responsible_area,
-        Classification = riskEntity.rsk_classification,
+        Type = riskEntity.rsk_type.GetDescription(),
+        Probability = riskEntity.rsk_probability.GetDescription(),
+        ResponsibleArea = riskEntity.rsk_responsible_area.GetDescription(),
+        Classification = riskEntity.rsk_classification.GetDescription(),
         ProjectId = riskEntity.rsk_project_id,
         AlertDate = riskEntity.rsk_alert_date,
-        Impact = riskEntity.rsk_impact,
-        Plant = riskEntity.rsk_plant,
+        Impact = riskEntity.rsk_impact.GetDescription(),
+        Plant = riskEntity.rsk_plant.GetDescription(),
         Consequence = riskEntity.rsk_consequence,
-        Jalon = riskEntity.rsk_jalon,
-        Metier = riskEntity.rsk_metier,
-        Status = riskEntity.rsk_status,
+        Jalon = riskEntity.rsk_jalon.GetDescription(),
+        Metier = riskEntity.rsk_metier.GetDescription(),
+        Status = riskEntity.rsk_status.GetDescription(),
         CreatedAt = riskEntity.rsk_created_at,
         UpdatedAt = riskEntity.rsk_updated_at,
         SolutionId = riskEntity.TbSolution?.sln_id ?? 0,
@@ -81,4 +83,25 @@ public static class RiskExtensions
             riskEntity.rsk_usr_id = riskUpdateRequestDto.UserId.Value;
         riskEntity.rsk_updated_at = DateTime.Now;
     }
+
+    public static RiskFieldOptionsResponseDTO GetFieldOptions() => new
+    (
+        Enum.GetValues<RiskTypesEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription()),
+        Enum.GetValues<RiskFieldLevelsEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription()),
+        Enum.GetValues<RiskResponsibleAreasEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription()),
+        Enum.GetValues<RiskClassificationLevelsEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription()),
+        Enum.GetValues<RiskFieldLevelsEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription()),
+        Enum.GetValues<RiskPlantsEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription()),
+        Enum.GetValues<JalonsEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription()),
+        Enum.GetValues<MetiersEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription()),
+        Enum.GetValues<RiskStatusEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription()));
 }

@@ -4,10 +4,10 @@ namespace renault.risk.manager.Domain.Enums;
 
 public enum RiskStatusEnum
 {
-    [Description("Open")]
+    [Description("Em Aberto")]
     Open = 1,
-    [Description("Inactive")]
+    [Description("Inativo")]
     Inactive = 2,
-    [Description("Solved")]
+    [Description("Resolvido")]
     Solved = 3
 }

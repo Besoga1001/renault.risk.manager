@@ -49,4 +49,10 @@ public class RisksController
     {
         return new OkObjectResult(await riskService.GetByIdAsync(id));
     }
+
+    [HttpGet("/field-options")]
+    public ObjectResult GetFieldOptions()
+    {
+        return new OkObjectResult(riskService.GetFieldOptions());
+    }
 }
