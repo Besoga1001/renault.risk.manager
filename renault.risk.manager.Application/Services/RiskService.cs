@@ -15,20 +15,20 @@ namespace renault.risk.manager.Application.Services;
 
 public class RiskService : IRiskService
 {
-    private readonly IMetierRepository _metierRepository;
-    private readonly IUserRepository _userRepository;
+    private readonly IJalonRepository jalonRepository;
+    private readonly IMetierRepository metierRepository;
     private readonly IProjectRepository projectRepository;
     private readonly IRiskRepository _riskRepository;
 
     // ReSharper disable once ConvertToPrimaryConstructor
     public RiskService(
+        IJalonRepository jalonRepository,
         IMetierRepository metierRepository,
-        IUserRepository userRepository,
         IProjectRepository projectRepository,
         IRiskRepository riskRepository)
     {
-        _metierRepository = metierRepository;
-        _userRepository = userRepository;
+        this.jalonRepository = jalonRepository;
+        this.metierRepository = metierRepository;
         this.projectRepository = projectRepository;
         _riskRepository = riskRepository;
     }
@@ -58,10 +58,6 @@ public class RiskService : IRiskService
 
     public async Task<List<RiskResponseDTO>> GetAllAsync(RiskFiltersDTO riskFiltersDto)
     {
-        if (riskFiltersDto.MetierIds != null)
-        {
-            var metierEntities = await _metierRepository.GetAllAsync(null, null);
-        }
         var riskEntities = await _riskRepository.GetAllAsync(riskFiltersDto);
         return riskEntities.Select(riskEntity => riskEntity.ToDto()).ToList();
     }
@@ -75,7 +71,9 @@ public class RiskService : IRiskService
     public RiskFieldOptionsResponseDTO GetFieldOptions()
     {
         var projectEntities = projectRepository.GetAll();
-        return RiskExtensions.GetFieldOptions(projectEntities);
+        var jalonEntities = jalonRepository.GetAll();
+        var metierEntities = metierRepository.GetAll();
+        return RiskExtensions.GetFieldOptions(projectEntities, jalonEntities, metierEntities);
     }
 
     private async Task<tb_risk> GetEntityByIdAsync(int riskId)

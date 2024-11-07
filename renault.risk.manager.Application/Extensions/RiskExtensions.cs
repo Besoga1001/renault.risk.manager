@@ -84,7 +84,8 @@ public static class RiskExtensions
         riskEntity.rsk_updated_at = DateTime.Now;
     }
 
-    public static RiskFieldOptionsResponseDTO GetFieldOptions(List<tb_project> projectEntities) => new
+    public static RiskFieldOptionsResponseDTO GetFieldOptions(List<tb_project> projectEntities,
+        List<tb_jalon> jalonEntities, List<tb_metier> metierEntities) => new
     (
         Enum.GetValues<RiskTypesEnum>()
             .ToDictionary(e => (int)e, e => e.GetDescription()),
@@ -107,8 +108,9 @@ public static class RiskExtensions
         projectEntities.Where(p => p.pjc_status == true)
             .ToDictionary(p => p.pjc_id, p => p.pjc_name),
 
-        Enum.GetValues<MetiersEnum>()
-            .ToDictionary(e => (int)e, e => e.GetDescription()),
+        metierEntities.ToDictionary(m => m.met_id, m => m.met_description),
+
+        jalonEntities.ToDictionary(j => j.jal_id, j => j.jal_description),
 
         Enum.GetValues<RiskStatusEnum>()
             .ToDictionary(e => (int)e, e => e.GetDescription()));
