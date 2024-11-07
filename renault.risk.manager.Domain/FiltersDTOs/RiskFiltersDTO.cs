@@ -3,11 +3,11 @@ using renault.risk.manager.Domain.Enums;
 namespace renault.risk.manager.Domain.FiltersDTOs;
 
 public record RiskFiltersDTO(
-    int? ProjectId,
+    string? ProjectIds,
     string? Description,
-    RiskFieldLevelsEnum? ImpactId,
-    MetiersEnum? MetierId,
-    JalonsEnum? JalonId,
-    RiskStatusEnum? StatusId,
+    string? ImpactIds,
+    string? MetierIds,
+    string? JalonIds,
+    string? StatusIds,
     bool? IsCaptalization
     );

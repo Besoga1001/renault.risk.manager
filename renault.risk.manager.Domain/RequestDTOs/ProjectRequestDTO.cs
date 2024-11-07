@@ -7,6 +7,5 @@ namespace renault.risk.manager.Domain.RequestDTOs;
 public record ProjectRequestDTO(
     string Name,
     string ImgPath,
-    ICollection<int> Jalons,
-    ICollection<int> Metiers
+    ICollection<int> Jalons
 );

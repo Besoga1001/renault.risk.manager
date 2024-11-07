@@ -25,9 +25,10 @@ public class RiskRepository : RepositoryGenerics<tb_risk>, IRiskRepository
     {
         var query = _riskManagerContext.tb_risks.AsQueryable();
 
-        if (riskFiltersDto.ProjectId != null)
+        if (riskFiltersDto.ProjectIds != null)
         {
-            query = query.Where(r => r.TbProject.pjc_id == riskFiltersDto.ProjectId);
+            var projectList = riskFiltersDto.ProjectIds.Split(",").Select(int.Parse).ToList();
+            query = query.Where(r => projectList.Contains(r.TbProject.pjc_id));
         }
 
         if (riskFiltersDto.Description != null)
@@ -35,24 +36,28 @@ public class RiskRepository : RepositoryGenerics<tb_risk>, IRiskRepository
             query = query.Where(r => r.rsk_description.Contains(riskFiltersDto.Description));
         }
 
-        if (riskFiltersDto.ImpactId != null)
+        if (riskFiltersDto.ImpactIds != null)
         {
-            query = query.Where(r => r.rsk_impact == riskFiltersDto.ImpactId);
+            var impactList = riskFiltersDto.ImpactIds.Split(",").Select(int.Parse).ToList();
+            query = query.Where(r => impactList.Contains((int)r.rsk_impact));
         }
 
-        if (riskFiltersDto.MetierId != null)
+        if (riskFiltersDto.MetierIds != null)
         {
-            query = query.Where(r => r.rsk_metier == riskFiltersDto.MetierId);
+            var metierList = riskFiltersDto.MetierIds.Split(",").Select(int.Parse).ToList();
+            query = query.Where(r => metierList.Contains((int)r.rsk_metier));
         }
 
-        if (riskFiltersDto.JalonId != null)
+        if (riskFiltersDto.JalonIds != null)
         {
-            query = query.Where(r => r.rsk_jalon == riskFiltersDto.JalonId);
+            var jalonList = riskFiltersDto.JalonIds.Split(",").Select(int.Parse).ToList();
+            query = query.Where(r => jalonList.Contains((int)r.rsk_jalon));
         }
 
-        if (riskFiltersDto.StatusId != null)
+        if (riskFiltersDto.StatusIds != null)
         {
-            query = query.Where(r => r.rsk_status == riskFiltersDto.StatusId);
+            var statusList = riskFiltersDto.StatusIds.Split(",").Select(int.Parse).ToList();
+            query = query.Where(r => statusList.Contains((int)r.rsk_status));
         }
 
         if (riskFiltersDto.IsCaptalization != null)

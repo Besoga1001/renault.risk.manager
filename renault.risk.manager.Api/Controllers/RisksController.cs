@@ -25,11 +25,11 @@ public class RisksController
         return new OkObjectResult(await riskService.InsertAsync(riskInsertRequestDto));
     }
 
-    [HttpPost("import-data")]
+    [HttpPost("data-import")]
     public async Task<ObjectResult> InsertRangeAsync(List<RiskInsertRequestDTO> riskInsertRequestDto)
     {
         await riskService.InsertRangeAsync(riskInsertRequestDto);
-        return new ObjectResult("");
+        return new ObjectResult("Data Import Completed Successfully");
     }
 
     [HttpPatch("{riskId}")]

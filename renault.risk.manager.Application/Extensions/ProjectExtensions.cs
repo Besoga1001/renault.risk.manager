@@ -7,10 +7,14 @@ namespace renault.risk.manager.Application.Extensions;
 public static class ProjectExtensions
 {
 
-    public static tb_project ToEntity(this ProjectRequestDTO projectRequestDto) => new ()
+    public static tb_project ToEntity(this ProjectRequestDTO projectRequestDto, ICollection<tb_jalon> jalonEntities)
+        => new ()
     {
         pjc_name = projectRequestDto.Name,
-        pjc_img_path = projectRequestDto.ImgPath
+        pjc_img_path = projectRequestDto.ImgPath,
+        pjc_status = true,
+        pjc_created_at = DateTime.Now,
+        TbJalons = jalonEntities
         // pjc_jalons = projectRequestDto.jalons,
         // pjc_metiers = projectRequestDto.metiers
     };
@@ -20,6 +24,7 @@ public static class ProjectExtensions
         projectEntity.pjc_id,
         projectEntity.pjc_name,
         projectEntity.pjc_img_path,
+        projectEntity.pjc_status,
         projectEntity.TbJalons.ToDictionary(p => p.jal_id, p => p.jal_description)
     );
 

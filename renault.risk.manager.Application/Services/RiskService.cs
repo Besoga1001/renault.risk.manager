@@ -17,16 +17,19 @@ public class RiskService : IRiskService
 {
     private readonly IMetierRepository _metierRepository;
     private readonly IUserRepository _userRepository;
+    private readonly IProjectRepository projectRepository;
     private readonly IRiskRepository _riskRepository;
 
     // ReSharper disable once ConvertToPrimaryConstructor
     public RiskService(
         IMetierRepository metierRepository,
         IUserRepository userRepository,
+        IProjectRepository projectRepository,
         IRiskRepository riskRepository)
     {
         _metierRepository = metierRepository;
         _userRepository = userRepository;
+        this.projectRepository = projectRepository;
         _riskRepository = riskRepository;
     }
 
@@ -55,7 +58,7 @@ public class RiskService : IRiskService
 
     public async Task<List<RiskResponseDTO>> GetAllAsync(RiskFiltersDTO riskFiltersDto)
     {
-        if (riskFiltersDto.MetierId != null)
+        if (riskFiltersDto.MetierIds != null)
         {
             var metierEntities = await _metierRepository.GetAllAsync(null, null);
         }
@@ -69,7 +72,11 @@ public class RiskService : IRiskService
         return riskEntity.ToDto();
     }
 
-    public RiskFieldOptionsResponseDTO GetFieldOptions() => RiskExtensions.GetFieldOptions();
+    public RiskFieldOptionsResponseDTO GetFieldOptions()
+    {
+        var projectEntities = projectRepository.GetAll();
+        return RiskExtensions.GetFieldOptions(projectEntities);
+    }
 
     private async Task<tb_risk> GetEntityByIdAsync(int riskId)
     {

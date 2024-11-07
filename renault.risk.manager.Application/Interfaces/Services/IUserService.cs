@@ -1,6 +1,8 @@
+using renault.risk.manager.Domain.RequestDTOs;
+
 namespace renault.risk.manager.Application.Interfaces.Services;
 
 public interface IUserService
 {
-    void ValidateUser(string email);
+    Task InsertRangeAsync(List<UserInsertRequestDTO> userInsertRequestDtos);
 }

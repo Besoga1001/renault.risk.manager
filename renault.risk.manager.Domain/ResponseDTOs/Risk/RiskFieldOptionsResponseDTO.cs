@@ -9,7 +9,7 @@ public record RiskFieldOptionsResponseDTO(
     Dictionary<int, string> RskClassification,
     Dictionary<int, string> RskImpact,
     Dictionary<int, string> RskPlant,
-    Dictionary<int, string> RskJalon,
+    Dictionary<int, string> RskProject,
     Dictionary<int, string> RskMetier,
     Dictionary<int, string> RskStatus
 );

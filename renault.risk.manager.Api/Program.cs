@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
@@ -7,6 +8,7 @@ using renault.risk.manager.Api.Middlewares;
 using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Application.Services;
+using renault.risk.manager.Application.Utils;
 using renault.risk.manager.Infrastructure.Context;
 using renault.risk.manager.Infrastructure.Repositories.Services;
 
@@ -48,6 +50,11 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     });
+
+builder.Services.AddControllers(options =>
+{
+    options.ModelBinderProviders.Insert(0, new CamelCaseQueryModelBinderProvider());
+});
 
 builder.Services.Configure<RouteOptions>(options =>
 {

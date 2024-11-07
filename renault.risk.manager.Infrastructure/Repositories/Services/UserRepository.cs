@@ -15,6 +15,11 @@ public class UserRepository : RepositoryGenerics<tb_user>, IUserRepository
         _riskManagerContext = context;
     }
 
+    public async Task AddRangeAsync(List<tb_user> userEntities)
+    {
+        await _riskManagerContext.tb_users.AddRangeAsync(userEntities);
+    }
+
     public async Task<List<tb_user>> GetByEmailAsync(string email)
     {
         var query = _riskManagerContext.tb_users.AsQueryable();
