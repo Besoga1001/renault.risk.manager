@@ -51,15 +51,15 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     });
 
-builder.Services.AddControllers(options =>
-{
-    options.ModelBinderProviders.Insert(0, new CamelCaseQueryModelBinderProvider());
-});
+// builder.Services.AddControllers(options =>
+// {
+//     options.ModelBinderProviders.Insert(0, new CamelCaseQueryModelBinderProvider());
+// });
 
-builder.Services.Configure<RouteOptions>(options =>
-{
-    options.LowercaseUrls = true;
-});
+// builder.Services.Configure<RouteOptions>(options =>
+// {
+//     options.LowercaseUrls = true;
+// });
 
 builder.Services.AddCors(options =>
 {
