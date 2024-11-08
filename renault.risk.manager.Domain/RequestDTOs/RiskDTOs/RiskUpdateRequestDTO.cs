@@ -26,9 +26,9 @@ public class RiskUpdateRequestDTO
     [JsonPropertyName("rskConsequence")]
     public string? Consequence { get; set; }
     [JsonPropertyName("rskJalon")]
-    public JalonsEnum? Jalon { get; set; }
-    [JsonPropertyName("rskMetier")]
-    public MetiersEnum? Metier { get; set; }
+    public int? Jalon { get; set; }
+    [JsonPropertyName("rskMetierId")]
+    public int? Metier { get; set; }
     [JsonPropertyName("rskStatus")]
     public RiskStatusEnum? Status { get; set; }
     [JsonPropertyName("rskUserId")]

@@ -21,8 +21,12 @@ public class tb_risk //TODO "Add Enums Different Fields"
     public RiskFieldLevelsEnum rsk_impact { get; set; }
     public RiskPlantsEnum rsk_plant { get; set; }
     public string rsk_consequence { get; set; }
-    public JalonsEnum rsk_jalon { get; set; }
-    public MetiersEnum rsk_metier { get; set; }
+    public int rsk_jalon_id { get; set; }
+    [ForeignKey("rsk_jalon_id")]
+    public virtual tb_jalon TbJalon { get; set; }
+    public int rsk_metier_id { get; set; }
+    [ForeignKey("rsk_metier_id")]
+    public virtual tb_metier TbMetier { get; set; }
     public RiskStatusEnum rsk_status { get; set; }
     public DateTime rsk_created_at { get; set; }
     public DateTime rsk_updated_at { get; set; }
@@ -30,5 +34,4 @@ public class tb_risk //TODO "Add Enums Different Fields"
     [ForeignKey("rsk_usr_id")]
     public virtual tb_user TbUser { get; set; }
     public virtual tb_solution? TbSolution { get; set; }
-
 }

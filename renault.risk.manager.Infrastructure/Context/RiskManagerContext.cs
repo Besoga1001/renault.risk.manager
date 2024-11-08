@@ -21,7 +21,6 @@ public class RiskManagerContext : DbContext
 
     public override int SaveChanges()
     {
-        // Detecta alterações nas entidades para capturar suas propriedades
         ChangeTracker.DetectChanges();
 
         foreach (var entry in ChangeTracker.Entries()
@@ -29,10 +28,8 @@ public class RiskManagerContext : DbContext
         {
             foreach (var property in entry.Properties)
             {
-                // Verifica se a propriedade é do tipo DateTime
                 if (property.Metadata.ClrType == typeof(DateTime) && property.CurrentValue != null)
                 {
-                    // Converte para UTC caso não esteja definido como UTC
                     var dateTimeValue = (DateTime)property.CurrentValue;
                     if (dateTimeValue.Kind == DateTimeKind.Local || dateTimeValue.Kind == DateTimeKind.Unspecified)
                     {

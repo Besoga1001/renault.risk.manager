@@ -13,4 +13,5 @@ public class tb_jalon
     public DateTime jal_created_at { get; set; }
     public DateTime jal_updated_at { get; set; }
     public virtual ICollection<tb_project> TbProjects { get; set; } = new List<tb_project>();
+    public virtual ICollection<tb_risk> TbRisks { get; set; } = new List<tb_risk>();
 }

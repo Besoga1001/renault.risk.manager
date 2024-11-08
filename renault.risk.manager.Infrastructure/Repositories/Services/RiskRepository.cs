@@ -45,13 +45,13 @@ public class RiskRepository : RepositoryGenerics<tb_risk>, IRiskRepository
         if (riskFiltersDto.MetierIds != null)
         {
             var metierList = riskFiltersDto.MetierIds.Split(",").Select(int.Parse).ToList();
-            query = query.Where(r => metierList.Contains((int)r.rsk_metier));
+            query = query.Where(r => metierList.Contains(r.rsk_metier_id));
         }
 
         if (riskFiltersDto.JalonIds != null)
         {
             var jalonList = riskFiltersDto.JalonIds.Split(",").Select(int.Parse).ToList();
-            query = query.Where(r => jalonList.Contains((int)r.rsk_jalon));
+            query = query.Where(r => jalonList.Contains(r.rsk_jalon_id));
         }
 
         if (riskFiltersDto.StatusIds != null)

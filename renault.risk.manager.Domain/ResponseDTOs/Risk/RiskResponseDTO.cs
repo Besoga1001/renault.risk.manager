@@ -19,6 +19,8 @@ public class RiskResponseDTO
     public required string Classification { get; set; }
     [JsonPropertyName("rskProjectId")]
     public int ProjectId { get; set; } // FK
+    [JsonPropertyName("rskProjectDescription")]
+    public required string ProjectDescription { get; set; }
     [JsonPropertyName("rskAlertDate")]
     public DateTime AlertDate { get; set; }
     [JsonPropertyName("rskImpact")]

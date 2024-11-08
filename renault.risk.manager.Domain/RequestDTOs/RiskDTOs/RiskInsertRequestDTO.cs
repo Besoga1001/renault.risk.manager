@@ -37,11 +37,11 @@ public class RiskInsertRequestDTO
     [JsonPropertyName("rskConsequence")]
     public string Consequence { get; set; }
     [Required]
-    [JsonPropertyName("rskJalon")]
-    public JalonsEnum Jalon { get; set; }
+    [JsonPropertyName("rskJalonId")]
+    public int Jalon { get; set; }
     [Required]
-    [JsonPropertyName("rskMetier")]
-    public MetiersEnum Metier { get; set; }
+    [JsonPropertyName("rskMetierId")]
+    public int Metier { get; set; }
     [Required]
     [JsonPropertyName("rskUserId")]
     public int UserId { get; set; }

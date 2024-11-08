@@ -11,5 +11,13 @@ public class tb_riskConfig  : IEntityTypeConfiguration<tb_risk>
         builder.HasOne(p => p.TbProject)
             .WithMany(r => r.TbRisks)
             .HasForeignKey(p => p.rsk_project_id);
+
+        builder.HasOne(p => p.TbJalon)
+            .WithMany(r => r.TbRisks)
+            .HasForeignKey(p => p.rsk_jalon_id);
+
+        builder.HasOne(p => p.TbMetier)
+            .WithMany(r => r.TbRisks)
+            .HasForeignKey(p => p.rsk_metier_id);
     }
 }
