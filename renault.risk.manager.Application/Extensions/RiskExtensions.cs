@@ -38,7 +38,7 @@ public static class RiskExtensions
         ResponsibleArea = riskEntity.rsk_responsible_area.GetDescription(),
         Classification = riskEntity.rsk_classification.GetDescription(),
         ProjectId = riskEntity.rsk_project_id,
-        ProjectDescription = riskEntity.rsk_description,
+        ProjectDescription = riskEntity.TbProject.pjc_name,
         AlertDate = riskEntity.rsk_alert_date,
         Impact = riskEntity.rsk_impact.GetDescription(),
         Plant = riskEntity.rsk_plant.GetDescription(),

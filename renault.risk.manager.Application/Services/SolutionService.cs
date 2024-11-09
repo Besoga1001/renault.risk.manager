@@ -2,33 +2,43 @@ using renault.risk.manager.Application.Extensions;
 using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Domain.RequestDTOs;
+using renault.risk.manager.Domain.RequestDTOs.SolutionDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
 
 namespace renault.risk.manager.Application.Services;
 
 public class SolutionService : ISolutionService
 {
-    private readonly ISolutionRepository _solutionRepository;
+    private readonly ISolutionRepository solutionRepository;
 
     public SolutionService(ISolutionRepository solutionRepository)
     {
-        _solutionRepository = solutionRepository;
+        this.solutionRepository = solutionRepository;
     }
 
-    public async Task<SolutionResponseDTO> InsertAsync(SolutionRequestDTO solutionRequestDto)
+    public async Task<SolutionResponseDTO> InsertAsync(SolutionInsertRequestDTO solutionInsertRequestDto)
     {
-        var solutionEntity = await _solutionRepository.AddAsync(solutionRequestDto.toEntity());
-        await _solutionRepository.SaveChangesAsync();
-        return solutionEntity.toDto();
+        var solutionEntity = await solutionRepository.AddAsync(solutionInsertRequestDto.ToEntity());
+        await solutionRepository.SaveChangesAsync();
+        return solutionEntity.ToDto();
     }
 
-    public async Task<SolutionResponseDTO> UpdateAsync(SolutionRequestDTO riskRequestDto)
+    public async Task<SolutionResponseDTO> UpdateAsync(int solutionId, SolutionUpdateRequestDTO solutionUpdateRequestDTO)
     {
-        throw new NotImplementedException();
+        var solutionEntity = await solutionRepository.GetByIdAsync(solutionId);
+        solutionEntity.Mapper(solutionUpdateRequestDTO);
+
+        solutionRepository.Update(solutionEntity);
+        await solutionRepository.SaveChangesAsync();
+
+        return solutionEntity.ToDto();
     }
 
     public async Task<List<SolutionResponseDTO>> GetAllAsync()
     {
+        var solutionEntities = await solutionRepository.GetAllAsync();
+        return solutionEntities.Select(s => s.ToDto()).ToList();
+
         throw new NotImplementedException();
     }
 

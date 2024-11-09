@@ -5,7 +5,7 @@ using renault.risk.manager.Domain.RequestDTOs;
 namespace renault.risk.manager.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/metiers")]
 public class MetiersController
 {
     private readonly IMetierService _metierService;

@@ -6,7 +6,7 @@ namespace renault.risk.manager.Api.Controllers;
 
 // [Authorize]
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/home")]
 public class HomeController : ControllerBase
 {
     private readonly IHomeService homeService;
