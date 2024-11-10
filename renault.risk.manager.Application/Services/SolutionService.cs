@@ -4,6 +4,7 @@ using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.RequestDTOs.SolutionDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
+using renault.risk.manager.Domain.ResponseDTOs.Solution;
 
 namespace renault.risk.manager.Application.Services;
 
@@ -46,4 +47,7 @@ public class SolutionService : ISolutionService
     {
         throw new NotImplementedException();
     }
+
+    public SolutionFieldOptionsResponseDTO GetFieldOptions() => SolutionExtensions.GetFieldOptions();
+
 }

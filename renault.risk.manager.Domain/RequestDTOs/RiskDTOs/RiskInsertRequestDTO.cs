@@ -14,7 +14,7 @@ public class RiskInsertRequestDTO
     public RiskTypesEnum Type { get; set; }
     [Required]
     [JsonPropertyName("rskProbability")]
-    public RiskFieldLevelsEnum Probability { get; set; }
+    public FieldLevelsEnum Probability { get; set; }
     [Required]
     [JsonPropertyName("rskResponsibleArea")]
     public RiskResponsibleAreasEnum ResponsibleArea { get; set; }
@@ -29,7 +29,7 @@ public class RiskInsertRequestDTO
     public DateTime AlertDate { get; set; }
     [Required]
     [JsonPropertyName("rskImpact")]
-    public RiskFieldLevelsEnum Impact { get; set; }
+    public FieldLevelsEnum Impact { get; set; }
     [Required]
     [JsonPropertyName("rskPlant")]
     public RiskPlantsEnum Plant { get; set; }

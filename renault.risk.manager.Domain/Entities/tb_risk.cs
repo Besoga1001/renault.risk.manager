@@ -11,14 +11,14 @@ public class tb_risk //TODO "Add Enums Different Fields"
     public int rsk_id { get; set; }
     public string rsk_description { get; set; }
     public RiskTypesEnum rsk_type { get; set; }
-    public RiskFieldLevelsEnum rsk_probability { get; set; }
+    public FieldLevelsEnum rsk_probability { get; set; }
     public RiskResponsibleAreasEnum rsk_responsible_area { get; set; }
     public RiskClassificationLevelsEnum rsk_classification { get; set; }
     public int rsk_project_id { get; set; }
     [ForeignKey("rsk_project_id")]
     public virtual tb_project TbProject { get; set; }
     public DateTime rsk_alert_date { get; set; }
-    public RiskFieldLevelsEnum rsk_impact { get; set; }
+    public FieldLevelsEnum rsk_impact { get; set; }
     public RiskPlantsEnum rsk_plant { get; set; }
     public string rsk_consequence { get; set; }
     public int rsk_jalon_id { get; set; }

@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 namespace renault.risk.manager.Domain.Enums;
 
-public enum RiskFieldLevelsEnum
+public enum FieldLevelsEnum
 {
     [Description("Desconhecido")]
     Unknow = 6,

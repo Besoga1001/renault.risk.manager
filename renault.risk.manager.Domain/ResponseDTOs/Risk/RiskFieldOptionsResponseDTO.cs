@@ -2,7 +2,8 @@ using renault.risk.manager.Domain.Enums;
 
 namespace renault.risk.manager.Domain.ResponseDTOs.Risk;
 
-public record RiskFieldOptionsResponseDTO(
+public record RiskFieldOptionsResponseDTO
+(
     Dictionary<int, string> RskType,
     Dictionary<int, string> RskProbability,
     Dictionary<int, string> RskResponsibleArea,

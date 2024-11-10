@@ -40,4 +40,10 @@ public class SolutionsController
     {
         return new OkObjectResult(await solutionService.GetByIdAsync(id));
     }
+
+    [HttpGet("field-options")]
+    public ObjectResult GetFieldOptions()
+    {
+        return new OkObjectResult(solutionService.GetFieldOptions());
+    }
 }

@@ -91,7 +91,7 @@ public static class RiskExtensions
         Enum.GetValues<RiskTypesEnum>()
             .ToDictionary(e => (int)e, e => e.GetDescription()),
 
-        Enum.GetValues<RiskFieldLevelsEnum>()
+        Enum.GetValues<FieldLevelsEnum>()
             .ToDictionary(e => (int)e, e => e.GetDescription()),
 
         Enum.GetValues<RiskResponsibleAreasEnum>()
@@ -100,7 +100,7 @@ public static class RiskExtensions
         Enum.GetValues<RiskClassificationLevelsEnum>()
             .ToDictionary(e => (int)e, e => e.GetDescription()),
 
-        Enum.GetValues<RiskFieldLevelsEnum>()
+        Enum.GetValues<FieldLevelsEnum>()
             .ToDictionary(e => (int)e, e => e.GetDescription()),
 
         Enum.GetValues<RiskPlantsEnum>()

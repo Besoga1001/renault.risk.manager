@@ -10,7 +10,7 @@ public class RiskUpdateRequestDTO
     [JsonPropertyName("rskType")]
     public RiskTypesEnum? Type { get; set; }
     [JsonPropertyName("rskProbability")]
-    public RiskFieldLevelsEnum? Probability { get; set; }
+    public FieldLevelsEnum? Probability { get; set; }
     [JsonPropertyName("rskResponsibleArea")]
     public RiskResponsibleAreasEnum? ResponsibleArea { get; set; }
     [JsonPropertyName("rskClassification")]
@@ -20,7 +20,7 @@ public class RiskUpdateRequestDTO
     [JsonPropertyName("rskAlertDate")]
     public DateTime? AlertDate { get; set; }
     [JsonPropertyName("rskImpact")]
-    public RiskFieldLevelsEnum? Impact { get; set; }
+    public FieldLevelsEnum? Impact { get; set; }
     [JsonPropertyName("rskPlant")]
     public RiskPlantsEnum? Plant { get; set; }
     [JsonPropertyName("rskConsequence")]

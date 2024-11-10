@@ -1,6 +1,10 @@
+using renault.risk.manager.Application.Helpers;
 using renault.risk.manager.Domain.Entities;
+using renault.risk.manager.Domain.Enums;
+using renault.risk.manager.Domain.Enums.Solution;
 using renault.risk.manager.Domain.RequestDTOs.SolutionDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
+using renault.risk.manager.Domain.ResponseDTOs.Solution;
 
 namespace renault.risk.manager.Application.Extensions;
 
@@ -69,4 +73,15 @@ public static class SolutionExtensions
             solutionEntity.sln_resolution_date = solutionUpdateRequestDto.SlnResolutionDate.Value;
         solutionEntity.sln_updated_at = DateTime.Now;
     }
+
+    public static SolutionFieldOptionsResponseDTO GetFieldOptions() => new(
+        Enum.GetValues<SolutionStrategiesTypesEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription()),
+        Enum.GetValues<FieldLevelsEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription()),
+        Enum.GetValues<FieldLevelsEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription()),
+        Enum.GetValues<SolutionRiskValidationTypesEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription())
+    );
 }
