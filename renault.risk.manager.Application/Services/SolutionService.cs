@@ -21,6 +21,7 @@ public class SolutionService : ISolutionService
     {
         var solutionEntity = await solutionRepository.AddAsync(solutionInsertRequestDto.ToEntity());
         await solutionRepository.SaveChangesAsync();
+
         return solutionEntity.ToDto();
     }
 
@@ -39,13 +40,12 @@ public class SolutionService : ISolutionService
     {
         var solutionEntities = await solutionRepository.GetAllAsync();
         return solutionEntities.Select(s => s.ToDto()).ToList();
-
-        throw new NotImplementedException();
     }
 
     public async Task<SolutionResponseDTO> GetByIdAsync(int riskId)
     {
-        throw new NotImplementedException();
+        var solutionEntity = await solutionRepository.GetByIdAsync(riskId);
+        return solutionEntity.ToDto();
     }
 
     public SolutionFieldOptionsResponseDTO GetFieldOptions() => SolutionExtensions.GetFieldOptions();

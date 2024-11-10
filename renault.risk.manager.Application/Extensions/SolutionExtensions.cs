@@ -12,6 +12,7 @@ public static class SolutionExtensions
 {
     public static tb_solution ToEntity(this SolutionInsertRequestDTO solutionRequestDto) => new ()
     {
+        sln_risk_id = solutionRequestDto.SlnRiskId,
         sln_strategy = solutionRequestDto.SlnStrategy,
         sln_residual_probability = solutionRequestDto.SlnResidualProbability,
         sln_residual_impact = solutionRequestDto.SlnResidualImpact,
@@ -24,7 +25,6 @@ public static class SolutionExtensions
         sln_action = solutionRequestDto.SlnAction,
         sln_observation = solutionRequestDto.SlnObservation,
         sln_resolution_date = solutionRequestDto.SlnResolutionDate,
-        sln_risk_id = solutionRequestDto.SlnRiskId,
         sln_created_at = DateTime.Now
     };
 

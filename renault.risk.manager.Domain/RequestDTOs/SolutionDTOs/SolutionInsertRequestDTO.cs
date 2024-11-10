@@ -2,6 +2,7 @@ namespace renault.risk.manager.Domain.RequestDTOs.SolutionDTOs;
 
 public record SolutionInsertRequestDTO
     (
+        int SlnRiskId,
         string SlnStrategy,
         string SlnResidualProbability,
         string SlnResidualImpact,
@@ -13,6 +14,5 @@ public record SolutionInsertRequestDTO
         DateTime SlnStartActionPlanDate,
         string SlnAction,
         string SlnObservation,
-        DateTime SlnResolutionDate,
-        int SlnRiskId
+        DateTime SlnResolutionDate
     );

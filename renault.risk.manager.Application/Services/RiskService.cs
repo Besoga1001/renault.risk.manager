@@ -18,7 +18,7 @@ public class RiskService : IRiskService
     private readonly IJalonRepository jalonRepository;
     private readonly IMetierRepository metierRepository;
     private readonly IProjectRepository projectRepository;
-    private readonly IRiskRepository _riskRepository;
+    private readonly IRiskRepository riskRepository;
 
     // ReSharper disable once ConvertToPrimaryConstructor
     public RiskService(
@@ -30,35 +30,35 @@ public class RiskService : IRiskService
         this.jalonRepository = jalonRepository;
         this.metierRepository = metierRepository;
         this.projectRepository = projectRepository;
-        _riskRepository = riskRepository;
+        this.riskRepository = riskRepository;
     }
 
     public async Task<RiskResponseDTO> InsertAsync(RiskInsertRequestDTO riskInsertRequestDto)
     {
-        var riskEntity = await _riskRepository.AddAsync(riskInsertRequestDto.ToEntity());
-        await _riskRepository.SaveChangesAsync();
+        var riskEntity = await riskRepository.AddAsync(riskInsertRequestDto.ToEntity());
+        await riskRepository.SaveChangesAsync();
         return riskEntity.ToDto();
     }
 
     public async Task InsertRangeAsync(List<RiskInsertRequestDTO> riskInsertRequestDtos)
     {
         var list = riskInsertRequestDtos.Select(x => x.ToEntity()).ToList();
-        await _riskRepository.AddRangeAsync(list);
-        await _riskRepository.SaveChangesAsync();
+        await riskRepository.AddRangeAsync(list);
+        await riskRepository.SaveChangesAsync();
     }
 
     public async Task<RiskResponseDTO> UpdateAsync(int riskId, RiskUpdateRequestDTO riskUpdateRequestDto)
     {
         var riskEntity = await GetEntityByIdAsync(riskId);
         riskEntity.Mapper(riskUpdateRequestDto);
-        _riskRepository.Update(riskEntity);
-        await _riskRepository.SaveChangesAsync();
+        riskRepository.Update(riskEntity);
+        await riskRepository.SaveChangesAsync();
         return riskEntity.ToDto();
     }
 
     public async Task<List<RiskResponseDTO>> GetAllAsync(RiskFiltersDTO riskFiltersDto)
     {
-        var riskEntities = await _riskRepository.GetAllAsync(riskFiltersDto);
+        var riskEntities = await riskRepository.GetAllAsync(riskFiltersDto);
         return riskEntities.Select(riskEntity => riskEntity.ToDto()).ToList();
     }
 
@@ -78,7 +78,7 @@ public class RiskService : IRiskService
 
     private async Task<tb_risk> GetEntityByIdAsync(int riskId)
     {
-        return await _riskRepository.GetByIdAsync(riskId)
+        return await riskRepository.GetByIdAsync(riskId)
             ?? throw new NotFoundException($"No record found with the specified ID: {riskId}.");
     }
 

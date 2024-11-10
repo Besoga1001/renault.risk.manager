@@ -16,30 +16,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Minha API", Version = "v1" });
-
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Description = "Insira o token JWT no formato: Bearer {seu_token}",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-    });
-
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            Array.Empty<string>()
-        }
-    });
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -50,16 +26,6 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     });
 
-// builder.Services.AddControllers(options =>
-// {
-//     options.ModelBinderProviders.Insert(0, new CamelCaseQueryModelBinderProvider());
-// });
-
-// builder.Services.Configure<RouteOptions>(options =>
-// {
-//     options.LowercaseUrls = true;
-// });
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAny",
@@ -68,10 +34,7 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader());
 });
 
-// MSAL Tokens Configuration
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
-
+builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<RiskManagerContext>(options =>

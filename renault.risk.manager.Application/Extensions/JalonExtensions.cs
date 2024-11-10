@@ -1,5 +1,6 @@
 using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.RequestDTOs;
+using renault.risk.manager.Domain.RequestDTOs.JalonDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
 
 namespace renault.risk.manager.Application.Extensions;
@@ -21,4 +22,11 @@ public static class JalonExtensions
         jalonEntity.jal_created_at,
         jalonEntity.jal_updated_at
     );
+
+    public static void Mapper(this tb_jalon jalonEntity, JalonUpdateDTO jalonUpdateDto)
+    {
+        if (jalonUpdateDto.JalStatus != null)
+            jalonEntity.jal_status = jalonUpdateDto.JalStatus.Value;
+        jalonEntity.jal_updated_at = DateTime.Now;
+    }
 }

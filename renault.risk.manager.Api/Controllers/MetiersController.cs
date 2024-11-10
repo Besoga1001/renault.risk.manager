@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Domain.RequestDTOs;
+using renault.risk.manager.Domain.RequestDTOs.MetierDTOs;
 
 namespace renault.risk.manager.Api.Controllers;
 
@@ -20,6 +21,12 @@ public class MetiersController
     public async Task<ObjectResult> Insert(MetierRequestDTO metierRequestDto)
     {
         return new OkObjectResult(await _metierService.Insert(metierRequestDto));
+    }
+
+    [HttpPatch("{metierId}")]
+    public async Task<ObjectResult> Patch(int metierId, MetierUpdateDTO metierUpdateDto)
+    {
+        return new OkObjectResult(await _metierService.Update(metierId, metierUpdateDto));
     }
 
     [HttpGet]

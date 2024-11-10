@@ -1,5 +1,6 @@
 using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.RequestDTOs;
+using renault.risk.manager.Domain.RequestDTOs.MetierDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
 
 namespace renault.risk.manager.Application.Extensions;
@@ -21,4 +22,11 @@ public static class MetierExtensions
         metierEntity.met_created_at,
         metierEntity.met_updated_at
     );
+
+    public static void Mapper(this tb_metier metierEntity, MetierUpdateDTO metierUpdateDto)
+    {
+        if (metierUpdateDto.MetStatus != null)
+            metierEntity.met_status = metierUpdateDto.MetStatus.Value;
+        metierEntity.met_updated_at = DateTime.Now;
+    }
 }

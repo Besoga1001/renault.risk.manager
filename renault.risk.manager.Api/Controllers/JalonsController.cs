@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Domain.RequestDTOs;
+using renault.risk.manager.Domain.RequestDTOs.JalonDTOs;
 
 namespace renault.risk.manager.Api.Controllers;
 
@@ -20,6 +21,12 @@ public class JalonsController : ControllerBase
     public async Task<ObjectResult> Insert(JalonRequestDTO jalonRequestDto)
     {
         return new OkObjectResult(await _jalonService.Insert(jalonRequestDto));
+    }
+
+    [HttpPatch("{jalonId}")]
+    public async Task<ObjectResult> Patch(int jalonId, JalonUpdateDTO jalonUpdateDto)
+    {
+        return new OkObjectResult(await _jalonService.Update(jalonId, jalonUpdateDto));
     }
 
     [HttpGet]
