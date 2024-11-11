@@ -20,7 +20,7 @@ public class UserRepository : RepositoryGenerics<tb_user>, IUserRepository
         await _riskManagerContext.tb_users.AddRangeAsync(userEntities);
     }
 
-    public async Task<List<tb_user>> GetByEmailAsync(string email)
+    public async Task<tb_user?> GetByEmailAsync(string email)
     {
         var query = _riskManagerContext.tb_users.AsQueryable();
         
@@ -29,7 +29,7 @@ public class UserRepository : RepositoryGenerics<tb_user>, IUserRepository
             query = query.Where(x => x.usr_email == email);
         }
         
-        return await query.ToListAsync();
+        return await query.FirstOrDefaultAsync();
     }
         
     

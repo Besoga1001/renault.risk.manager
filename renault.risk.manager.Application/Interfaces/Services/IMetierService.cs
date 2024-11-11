@@ -1,3 +1,4 @@
+using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.RequestDTOs.MetierDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
@@ -11,4 +12,5 @@ public interface IMetierService
     Task<MetierResponseDTO> GetByIdAsync(int metierId);
     Task<List<MetierResponseDTO>> GetAllAsync(string? metierDescription);
     Task<string> Delete(int metierId);
+    Task<List<tb_metier>> GetMetiersByIds(List<int> metierIds);
 }

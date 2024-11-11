@@ -4,7 +4,6 @@ using renault.risk.manager.Application.Interfaces.Services;
 
 namespace renault.risk.manager.Api.Controllers;
 
-// [Authorize]
 [ApiController]
 [Route("api/home")]
 public class HomeController : ControllerBase

@@ -9,7 +9,7 @@ namespace renault.risk.manager.Api.Controllers;
 // [Authorize]
 [ApiController]
 [Route("api/risks")]
-public class RisksController
+public class RisksController : ControllerBase
 {
     private readonly IRiskService riskService;
 

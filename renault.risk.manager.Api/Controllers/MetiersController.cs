@@ -7,7 +7,7 @@ namespace renault.risk.manager.Api.Controllers;
 
 [ApiController]
 [Route("api/metiers")]
-public class MetiersController
+public class MetiersController : ControllerBase
 {
     private readonly IMetierService _metierService;
 

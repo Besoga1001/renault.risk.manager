@@ -1,72 +1,103 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using renault.risk.manager.Application.Extensions;
+using renault.risk.manager.Application.Helpers;
 using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.RequestDTOs;
+using renault.risk.manager.Domain.RequestDTOs.UserDTOs;
+using renault.risk.manager.Domain.ResponseDTOs;
 
 namespace renault.risk.manager.Application.Services;
 
 public class UserService : IUserService
 {
+
+    private readonly IConfiguration configuration;
     private readonly IUserRepository userRepository;
-    private readonly IMetierRepository metierRepository;
+    private readonly IMetierService metierService;
 
     // ReSharper disable once ConvertToPrimaryConstructor
-    public UserService(IUserRepository userRepository, IMetierRepository metierRepository)
+    public UserService(
+        IConfiguration configuration,
+        IUserRepository userRepository,
+        IMetierService metierService)
     {
+        this.configuration = configuration;
         this.userRepository = userRepository;
-        this.metierRepository = metierRepository;
+        this.metierService = metierService;
+    }
+
+    public async Task<AccessTokenResponseDTO> Login(UserLoginRequestDTO userLoginRequestDto)
+    {
+        var userEntity = await userRepository.GetByEmailAsync(userLoginRequestDto.UsrEmail);
+        if (userEntity == null) throw new UnauthorizedAccessException();
+
+        var isPasswordValid = PasswordHasherHelper.VerifyPassword(
+            userLoginRequestDto.UsrPassword, userEntity.usr_password_hash, userEntity.usr_password_salt);
+        if (!isPasswordValid) throw new UnauthorizedAccessException();
+
+        return new AccessTokenResponseDTO(
+            GenerateJwtToken(userLoginRequestDto.UsrEmail),
+            DateTime.Now
+        );
+    }
+
+    private string GenerateJwtToken(string email)
+    {
+        var jwtSettings = configuration.GetSection("Jwt");
+        var key = Encoding.ASCII.GetBytes(jwtSettings["Key"] ?? string.Empty);
+
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.Email, email)
+            }),
+            Expires = DateTime.UtcNow.AddHours(8),
+            Issuer = jwtSettings["Issuer"],
+            Audience = jwtSettings["Audience"],
+            SigningCredentials = new SigningCredentials(
+                new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        };
+
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+        return tokenHandler.WriteToken(token);
     }
 
     public async Task InsertRangeAsync(List<UserInsertRequestDTO> userInsertRequestDtos)
     {
-        var metierEntities = new List<tb_metier>();
-        foreach (var metierDescription in userInsertRequestDtos
-                     .SelectMany(userInsertRequestDto => userInsertRequestDto.UsrMetiers))
+        var responseList = new List<tb_user>();
+        foreach (var userInsertRequestDto in userInsertRequestDtos)
         {
-            var response = await metierRepository.GetAllAsync(null, metierDescription);
-            var metierEntity = response.FirstOrDefault();
-            if (metierEntity != null) metierEntities.Add(metierEntity);
-        }
+            PasswordHasherHelper.HashPassword(userInsertRequestDto.UsrPassword,
+                out var passwordHash, out var passwordSalt);
 
-        var list = userInsertRequestDtos.Select(x => x.ToEntity(metierEntities)).ToList();
-        await userRepository.AddRangeAsync(list);
+            var metierEntities = await metierService.GetMetiersByIds(userInsertRequestDto.UsrMetiers);
+
+            responseList.Add(userInsertRequestDto
+                .ToEntity(passwordHash, passwordSalt, metierEntities));
+        }
+        await userRepository.AddRangeAsync(responseList);
         await userRepository.SaveChangesAsync();
     }
 
-    public async void ValidateUser(string email)
+    public async Task InsertAsync(UserInsertRequestDTO userInsertRequestDto)
     {
-        var listUserEntity = await userRepository.GetByEmailAsync(email);
-        var userEntity = listUserEntity.FirstOrDefault();
+        PasswordHasherHelper.HashPassword(userInsertRequestDto.UsrPassword,
+            out var passwordHash, out var passwordSalt);
 
-        if (userEntity != null)
-        {
-            UpdateUserAsync(userEntity);
-        }
-        else
-        {
-            InsertUserAsync(email);
-        }
-        
-        await userRepository.SaveChangesAsync();
-    }
+        var metierEntities = await metierService
+            .GetMetiersByIds(userInsertRequestDto.UsrMetiers);
 
-    private async void InsertUserAsync(string email)
-    {
-        var userEntity = new tb_user
-        {
-            usr_email = email,
-            usr_name = "To Do", //TODO
-            usr_created_at = DateTime.Now,
-            usr_updated_at = null
-        };
-
+        var userEntity = userInsertRequestDto
+            .ToEntity(passwordHash, passwordSalt, metierEntities);
         await userRepository.AddAsync(userEntity);
-    }
-    
-    private void UpdateUserAsync(tb_user userEntity)
-    {
-        userEntity.usr_updated_at = DateTime.Now; //Updated At = Last Login (In This Case)
-        userRepository.Update(userEntity);
+        await userRepository.SaveChangesAsync();
     }
 }

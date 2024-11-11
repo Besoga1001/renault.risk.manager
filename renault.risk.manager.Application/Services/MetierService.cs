@@ -1,6 +1,7 @@
 using renault.risk.manager.Application.Extensions;
 using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Application.Interfaces.Services;
+using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.RequestDTOs.MetierDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
@@ -52,5 +53,16 @@ public class MetierService : IMetierService
         metierRepository.Remove(metierId);
         await metierRepository.SaveChangesAsync();
         return $"Successfully to Delete Register with ID: {metierId}";
+    }
+
+    public async Task<List<tb_metier>> GetMetiersByIds(List<int> metierIds)
+    {
+        var metierEntities = new List<tb_metier>();
+        foreach (var metierId in metierIds)
+        {
+            var metierEntity = await metierRepository.GetByIdAsync(metierId);
+            metierEntities.Add(metierEntity);
+        }
+        return metierEntities;
     }
 }

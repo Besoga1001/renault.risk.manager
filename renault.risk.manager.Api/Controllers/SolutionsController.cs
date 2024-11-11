@@ -7,7 +7,7 @@ namespace renault.risk.manager.Api.Controllers;
 
 [ApiController]
 [Route("api/solutions")]
-public class SolutionsController
+public class SolutionsController : ControllerBase
 {
     private readonly ISolutionService solutionService;
 
