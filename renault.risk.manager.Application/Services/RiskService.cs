@@ -19,18 +19,21 @@ public class RiskService : IRiskService
     private readonly IMetierRepository metierRepository;
     private readonly IProjectRepository projectRepository;
     private readonly IRiskRepository riskRepository;
+    private readonly IRiskLogRepository riskLogRepository;
 
     // ReSharper disable once ConvertToPrimaryConstructor
     public RiskService(
         IJalonRepository jalonRepository,
         IMetierRepository metierRepository,
         IProjectRepository projectRepository,
-        IRiskRepository riskRepository)
+        IRiskRepository riskRepository,
+        IRiskLogRepository riskLogRepository)
     {
         this.jalonRepository = jalonRepository;
         this.metierRepository = metierRepository;
         this.projectRepository = projectRepository;
         this.riskRepository = riskRepository;
+        this.riskLogRepository = riskLogRepository;
     }
 
     public async Task<RiskResponseDTO> InsertAsync(RiskInsertRequestDTO riskInsertRequestDto)
@@ -50,6 +53,7 @@ public class RiskService : IRiskService
     public async Task<RiskResponseDTO> UpdateAsync(int riskId, RiskUpdateRequestDTO riskUpdateRequestDto)
     {
         var riskEntity = await GetEntityByIdAsync(riskId);
+
         riskEntity.Mapper(riskUpdateRequestDto);
         riskRepository.Update(riskEntity);
         await riskRepository.SaveChangesAsync();
@@ -80,6 +84,11 @@ public class RiskService : IRiskService
     {
         return await riskRepository.GetByIdAsync(riskId)
             ?? throw new NotFoundException($"No record found with the specified ID: {riskId}.");
+    }
+
+    private async Task WriteLog(tb_risk riskEntity, RiskUpdateRequestDTO riskUpdateRequestDto)
+    {
+        throw new NotImplementedException();
     }
 
 }
