@@ -90,6 +90,8 @@ builder.Services.AddDbContext<RiskManagerContext>(options =>
         .GetConnectionString("DefaultConnection"))
         .UseLazyLoadingProxies());
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddScoped<IMetierService, MetierService>();
 builder.Services.AddScoped<IMetierRepository, MetierRepository>();
 
@@ -108,6 +110,9 @@ builder.Services.AddScoped<ISolutionRepository, SolutionRepository>();
 builder.Services.AddScoped<IRiskService, RiskService>();
 builder.Services.AddScoped<IRiskRepository, RiskRepository>();
 
+builder.Services.AddScoped<IGlobalLogRepository, GlobalLogRepository>();
+
+builder.Services.AddScoped<IClaimsUserService, ClaimsUserService>();
 builder.Services.AddScoped<IHomeService, HomeService>();
 
 var app = builder.Build();
