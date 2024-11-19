@@ -42,13 +42,16 @@ public class RiskManagerContext : DbContext
     private void TrackInsertsAndChanges()
     {
         foreach (var entry in ChangeTracker.Entries()
-                     .Where(e => e.State is EntityState.Added or EntityState.Modified or EntityState.Deleted))
+                     .Where(e => e.State is EntityState.Added or EntityState.Modified))
         {
             var entryName = entry.Entity.GetType().Name;
             foreach (var property in entry.Properties)
             {
-                WriteLog(entryName, property);
                 UpdateDateTime(property);
+                if (entry.State == EntityState.Modified)
+                {
+                    WriteLog(entryName, property);
+                }
             }
         }
     }
@@ -65,7 +68,6 @@ public class RiskManagerContext : DbContext
 
     private void WriteLog(string entityName, PropertyEntry property)
     {
-
         if (!property.IsModified) return;
 
         var oldValue = property.OriginalValue?.ToString();

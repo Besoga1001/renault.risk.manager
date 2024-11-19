@@ -86,9 +86,4 @@ public class RiskService : IRiskService
             ?? throw new NotFoundException($"No record found with the specified ID: {riskId}.");
     }
 
-    private async Task WriteLog(tb_risk riskEntity, RiskUpdateRequestDTO riskUpdateRequestDto)
-    {
-        throw new NotImplementedException();
-    }
-
 }

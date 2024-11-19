@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using renault.risk.manager.Api.Middlewares;
@@ -110,6 +111,7 @@ builder.Services.AddScoped<ISolutionRepository, SolutionRepository>();
 builder.Services.AddScoped<IRiskService, RiskService>();
 builder.Services.AddScoped<IRiskRepository, RiskRepository>();
 
+builder.Services.AddScoped<IGlobalLogService, GlobalLogService>();
 builder.Services.AddScoped<IGlobalLogRepository, GlobalLogRepository>();
 
 builder.Services.AddScoped<IClaimsUserService, ClaimsUserService>();
