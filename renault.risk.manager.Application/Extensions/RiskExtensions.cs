@@ -1,6 +1,7 @@
 using renault.risk.manager.Application.Helpers;
 using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.Enums;
+using renault.risk.manager.Domain.Enums.Risk;
 using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.RequestDTOs.RiskDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
@@ -115,4 +116,68 @@ public static class RiskExtensions
 
         Enum.GetValues<RiskStatusEnum>()
             .ToDictionary(e => (int)e, e => e.GetDescription()));
+
+    public static int GetWeeklyRisks(this List<tb_risk> riskEntities)
+    {
+        var firstWeekDay = DateTime.Now.Date.AddDays(-(int)DateTime.Now.DayOfWeek);
+        var lastWeekDay = firstWeekDay.AddDays(6);
+        return riskEntities.Count(y => y.rsk_alert_date >= firstWeekDay && y.rsk_alert_date <= lastWeekDay);
+    }
+
+    public static int GetByMonthRisks(this List<tb_risk> riskEntities, DateTime monthDate, bool isResolved)
+    {
+        var firstMonthDay = new DateTime(DateTime.Now.Year, monthDate.Month, 1);
+        var lastMonthDay = firstMonthDay.AddMonths(1).AddDays(-1);
+
+        return riskEntities
+            .Count(y =>
+                (isResolved ? y.rsk_status == RiskStatusEnum.Solved : y.rsk_status != RiskStatusEnum.Solved) &&
+                y.rsk_alert_date >= firstMonthDay && y.rsk_alert_date <= lastMonthDay);
+    }
+
+    public static int GetCurrentMonthRisks(this List<tb_risk> riskEntities, bool isResolved)
+    {
+        var firstMonthDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+        var lastMonthDay = firstMonthDay.AddMonths(1).AddDays(-1);
+
+        return riskEntities
+            .Count(y =>
+                (isResolved ? y.rsk_status == RiskStatusEnum.Solved : y.rsk_status != RiskStatusEnum.Solved) &&
+                y.rsk_alert_date >= firstMonthDay && y.rsk_alert_date <= lastMonthDay);
+    }
+
+    public static int GetTotalCriticalRisks(this List<tb_risk> riskEntities)
+        => riskEntities.Count(y => y.rsk_classification == RiskClassificationLevelsEnum.K1);
+
+    public static int GetTotalLowImpactRisks(this List<tb_risk> riskEntities)
+        => riskEntities.Count(y => y.rsk_classification == RiskClassificationLevelsEnum.K4);
+
+    public static int GetRisksByUser(this List<tb_risk> riskEntities, int? userId)
+        => riskEntities.Count(y => y.rsk_usr_id == userId);
+
+    public static int GetMostAffectedJalonId(this List<tb_risk> riskEntities)
+        => riskEntities
+            .GroupBy(r => r.rsk_jalon_id)
+            .OrderByDescending(g => g.Count())
+            .Select(g => g.Key)
+            .FirstOrDefault();
+
+    public static int GetMostAffectedMetierId(this List<tb_risk> riskEntities)
+        => riskEntities
+            .GroupBy(r => r.rsk_metier_id)
+            .OrderByDescending(g => g.Count())
+            .Select(g => g.Key)
+            .FirstOrDefault();
+
+    public static Dictionary<string, int> GetRisksPerProjects(this List<tb_risk> riskEntities)
+        => riskEntities
+            .OrderBy(r => r.TbProject.pjc_id)
+            .GroupBy(r => r.TbProject.pjc_name)
+            .ToDictionary(g => g.Key, g => g.Count());
+
+    public static Dictionary<string, int> GetRisksPerType(this List<tb_risk> riskEntities)
+        => riskEntities
+            .OrderBy(r => r.rsk_type)
+            .GroupBy(r => r.rsk_type)
+            .ToDictionary(g => g.Key.GetDescription(), g => g.Count());
 }

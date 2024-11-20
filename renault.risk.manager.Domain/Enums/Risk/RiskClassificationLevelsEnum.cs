@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace renault.risk.manager.Domain.Enums;
+namespace renault.risk.manager.Domain.Enums.Risk;
 
 public enum RiskClassificationLevelsEnum
 {

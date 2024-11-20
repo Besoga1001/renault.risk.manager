@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using renault.risk.manager.Domain.Enums;
+using renault.risk.manager.Domain.Enums.Risk;
 
 namespace renault.risk.manager.Domain.Entities;
 

@@ -17,7 +17,6 @@ namespace renault.risk.manager.Application.Services;
 
 public class UserService : IUserService
 {
-
     private readonly IConfiguration configuration;
     private readonly IUserRepository userRepository;
     private readonly IMetierService metierService;

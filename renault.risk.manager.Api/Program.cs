@@ -115,6 +115,7 @@ builder.Services.AddScoped<IGlobalLogService, GlobalLogService>();
 builder.Services.AddScoped<IGlobalLogRepository, GlobalLogRepository>();
 
 builder.Services.AddScoped<IClaimsUserService, ClaimsUserService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IHomeService, HomeService>();
 
 var app = builder.Build();

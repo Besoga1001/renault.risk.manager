@@ -24,13 +24,10 @@ public class UserRepository : RepositoryGenerics<tb_user>, IUserRepository
     {
         var query = _riskManagerContext.tb_users.AsQueryable();
         
-        if (!string.IsNullOrWhiteSpace(email))
-        {
-            query = query.Where(x => x.usr_email == email);
-        }
-        
+        if (string.IsNullOrWhiteSpace(email)) return null;
+
+        query = query.Where(x => x.usr_email == email);
+
         return await query.FirstOrDefaultAsync();
     }
-        
-    
 }
