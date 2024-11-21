@@ -28,22 +28,23 @@ public static class SolutionExtensions
         sln_created_at = DateTime.Now
     };
 
-    public static SolutionResponseDTO ToDto(this tb_solution solutionEntity) => new ()
-    {
-        Id = solutionEntity.sln_id,
-        Strategy = solutionEntity.sln_strategy,
-        ResidualProbability = solutionEntity.sln_residual_probability,
-        ResidualImpact = solutionEntity.sln_residual_impact,
-        ActionValidation = solutionEntity.sln_action_validation,
-        RiskValidation = solutionEntity.sln_risk_validation,
-        AlertDate = solutionEntity.sln_alert_date,
-        Captalization = solutionEntity.sln_captalization,
-        UserPilotId = solutionEntity.sln_user_pilot_id,
-        StartActionPlanDate = solutionEntity.sln_start_action_plan_date,
-        Action = solutionEntity.sln_action,
-        Observation = solutionEntity.sln_observation,
-        ResolutionDate = solutionEntity.sln_resolution_date
-    };
+    public static SolutionResponseDTO ToDto(this tb_solution solutionEntity) => new
+    (
+        solutionEntity.sln_id,
+        solutionEntity.sln_strategy,
+        solutionEntity.sln_residual_probability,
+        solutionEntity.sln_residual_impact,
+        solutionEntity.sln_action_validation,
+        solutionEntity.sln_risk_validation,
+        solutionEntity.sln_alert_date,
+        solutionEntity.sln_captalization,
+        solutionEntity.sln_user_pilot_id,
+        solutionEntity.sln_start_action_plan_date,
+        solutionEntity.sln_action,
+        solutionEntity.sln_observation,
+        solutionEntity.sln_resolution_date,
+        solutionEntity.TbRisk.rsk_id
+    );
 
     public static void Mapper(this tb_solution solutionEntity, SolutionUpdateRequestDTO solutionUpdateRequestDto)
     {
