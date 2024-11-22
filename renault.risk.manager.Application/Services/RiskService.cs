@@ -19,7 +19,7 @@ public class RiskService : IRiskService
     private readonly IMetierRepository metierRepository;
     private readonly IProjectRepository projectRepository;
     private readonly IRiskRepository riskRepository;
-    private readonly IGlobalLogRepository _globalLogRepository;
+    private readonly IGlobalLogRepository globalLogRepository;
 
     // ReSharper disable once ConvertToPrimaryConstructor
     public RiskService(
@@ -33,7 +33,7 @@ public class RiskService : IRiskService
         this.metierRepository = metierRepository;
         this.projectRepository = projectRepository;
         this.riskRepository = riskRepository;
-        this._globalLogRepository = globalLogRepository;
+        this.globalLogRepository = globalLogRepository;
     }
 
     public async Task<RiskResponseDTO> InsertAsync(RiskInsertRequestDTO riskInsertRequestDto)

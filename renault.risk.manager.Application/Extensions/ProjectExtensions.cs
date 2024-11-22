@@ -15,8 +15,6 @@ public static class ProjectExtensions
         pjc_status = true,
         pjc_created_at = DateTime.Now,
         TbJalons = jalonEntities
-        // pjc_jalons = projectRequestDto.jalons,
-        // pjc_metiers = projectRequestDto.metiers
     };
 
     public static ProjectResponseDTO ToDto(this tb_project projectEntity) => new

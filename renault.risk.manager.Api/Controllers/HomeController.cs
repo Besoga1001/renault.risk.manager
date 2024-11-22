@@ -27,4 +27,11 @@ public class HomeController : ControllerBase
     {
         return new ObjectResult(await homeService.GetNumberOfRisksPerProject());
     }
+
+    [Authorize]
+    [HttpGet("get-by-current-user")]
+    public async Task<ObjectResult> GetAllByCurrentUser()
+    {
+        return new OkObjectResult(await homeService.GetRisksByUserMetier());
+    }
 }

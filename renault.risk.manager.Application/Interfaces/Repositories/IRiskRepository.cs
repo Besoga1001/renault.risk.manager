@@ -8,4 +8,5 @@ public interface IRiskRepository : IRepositoryGenerics<tb_risk>
 {
     Task AddRangeAsync(List<tb_risk> riskEntities);
     Task<List<tb_risk>> GetAllAsync(RiskFiltersDTO riskFiltersDto);
+    Task<List<tb_risk>> GetAllAsync(ICollection<tb_metier>? metierEntities);
 }

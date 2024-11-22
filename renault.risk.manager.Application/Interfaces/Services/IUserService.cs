@@ -1,4 +1,3 @@
-using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.RequestDTOs.UserDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
 

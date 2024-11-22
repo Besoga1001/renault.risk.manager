@@ -1,7 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using renault.risk.manager.Application.Extensions;
@@ -9,7 +8,7 @@ using renault.risk.manager.Application.Helpers;
 using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Domain.Entities;
-using renault.risk.manager.Domain.RequestDTOs;
+using renault.risk.manager.Domain.Exceptions;
 using renault.risk.manager.Domain.RequestDTOs.UserDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
 
@@ -35,13 +34,14 @@ public class UserService : IUserService
     public async Task<AccessTokenResponseDTO> Login(UserLoginRequestDTO userLoginRequestDto)
     {
         var userEntity = await userRepository.GetByEmailAsync(userLoginRequestDto.UsrEmail);
-        if (userEntity == null) throw new UnauthorizedAccessException();
+        if (userEntity == null) throw new NotFoundException("User not found.");
 
         var isPasswordValid = PasswordHasherHelper.VerifyPassword(
             userLoginRequestDto.UsrPassword, userEntity.usr_password_hash, userEntity.usr_password_salt);
-        if (!isPasswordValid) throw new UnauthorizedAccessException();
+        if (!isPasswordValid) throw new UnauthorizedAccessException("Wrong Password.");
 
         return new AccessTokenResponseDTO(
+            userEntity.usr_name,
             GenerateJwtToken(userLoginRequestDto.UsrEmail),
             DateTime.Now
         );

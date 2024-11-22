@@ -30,28 +30,28 @@ public static class RiskExtensions
         rsk_usr_id = riskInsertRequestDto.UserId
     };
 
-    public static RiskResponseDTO ToDto(this tb_risk riskEntity) => new ()
-    {
-        Id = riskEntity.rsk_id,
-        Description = riskEntity.rsk_description,
-        Type = riskEntity.rsk_type.GetDescription(),
-        Probability = riskEntity.rsk_probability.GetDescription(),
-        ResponsibleArea = riskEntity.rsk_responsible_area.GetDescription(),
-        Classification = riskEntity.rsk_classification.GetDescription(),
-        ProjectId = riskEntity.rsk_project_id,
-        ProjectDescription = riskEntity.TbProject.pjc_name,
-        AlertDate = riskEntity.rsk_alert_date,
-        Impact = riskEntity.rsk_impact.GetDescription(),
-        Plant = riskEntity.rsk_plant.GetDescription(),
-        Consequence = riskEntity.rsk_consequence,
-        Jalon = riskEntity.TbJalon.jal_description,
-        Metier = riskEntity.TbMetier.met_description,
-        Status = riskEntity.rsk_status.GetDescription(),
-        CreatedAt = riskEntity.rsk_created_at,
-        UpdatedAt = riskEntity.rsk_updated_at,
-        SolutionId = riskEntity.TbSolution?.sln_id ?? 0,
-        UserId = riskEntity.rsk_usr_id
-    };
+    public static RiskResponseDTO ToDto(this tb_risk riskEntity) => new
+    (
+        riskEntity.rsk_id,
+        riskEntity.rsk_description,
+        riskEntity.rsk_type.GetDescription(),
+        riskEntity.rsk_probability.GetDescription(),
+        riskEntity.rsk_responsible_area.GetDescription(),
+        riskEntity.rsk_classification.GetDescription(),
+        riskEntity.rsk_project_id,
+        riskEntity.TbProject.pjc_name,
+        riskEntity.rsk_alert_date,
+        riskEntity.rsk_impact.GetDescription(),
+        riskEntity.rsk_plant.GetDescription(),
+        riskEntity.rsk_consequence,
+        riskEntity.TbJalon.jal_description,
+        riskEntity.TbMetier.met_description,
+        riskEntity.rsk_status.GetDescription(),
+        riskEntity.TbSolution?.sln_id ?? 0,
+        riskEntity.rsk_usr_id,
+        riskEntity.rsk_created_at,
+        riskEntity.rsk_updated_at
+    );
 
     public static void Mapper(this tb_risk riskEntity, RiskUpdateRequestDTO riskUpdateRequestDto)
     {

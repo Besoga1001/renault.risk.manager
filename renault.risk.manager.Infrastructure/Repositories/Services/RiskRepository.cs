@@ -1,3 +1,4 @@
+using System.Collections;
 using Microsoft.EntityFrameworkCore;
 using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Domain.Entities;
@@ -67,5 +68,18 @@ public class RiskRepository : RepositoryGenerics<tb_risk>, IRiskRepository
         }
 
         return await query.ToListAsync();
+    }
+
+    public async Task<List<tb_risk>> GetAllAsync(ICollection<tb_metier>? metierEntities)
+    {
+        var query = _riskManagerContext.tb_risks.AsQueryable();
+        if (metierEntities != null)
+        {
+            foreach (var metierEntity in metierEntities)
+            {
+                query = query.Where(r => r.TbMetier == metierEntity);
+            }
+        }
+        return await query.OrderBy(r => r.rsk_id).Take(12).ToListAsync();
     }
 }
