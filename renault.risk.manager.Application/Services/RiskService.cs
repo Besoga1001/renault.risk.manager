@@ -19,21 +19,18 @@ public class RiskService : IRiskService
     private readonly IMetierRepository metierRepository;
     private readonly IProjectRepository projectRepository;
     private readonly IRiskRepository riskRepository;
-    private readonly IGlobalLogRepository globalLogRepository;
 
     // ReSharper disable once ConvertToPrimaryConstructor
     public RiskService(
         IJalonRepository jalonRepository,
         IMetierRepository metierRepository,
         IProjectRepository projectRepository,
-        IRiskRepository riskRepository,
-        IGlobalLogRepository globalLogRepository)
+        IRiskRepository riskRepository)
     {
         this.jalonRepository = jalonRepository;
         this.metierRepository = metierRepository;
         this.projectRepository = projectRepository;
         this.riskRepository = riskRepository;
-        this.globalLogRepository = globalLogRepository;
     }
 
     public async Task<RiskResponseDTO> InsertAsync(RiskInsertRequestDTO riskInsertRequestDto)
@@ -78,6 +75,14 @@ public class RiskService : IRiskService
         var jalonEntities = jalonRepository.GetAll();
         var metierEntities = metierRepository.GetAll();
         return RiskExtensions.GetFieldOptions(projectEntities, jalonEntities, metierEntities);
+    }
+
+    public async Task UpdateRiskStatus(int riskId)
+    {
+        var riskEntity = await riskRepository.GetByIdAsync(riskId);
+        riskEntity.rsk_status = RiskStatusEnum.Solved;
+        riskRepository.Update(riskEntity);
+        await riskRepository.SaveChangesAsync();
     }
 
     private async Task<tb_risk> GetEntityByIdAsync(int riskId)

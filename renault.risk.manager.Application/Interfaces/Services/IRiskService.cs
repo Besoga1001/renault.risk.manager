@@ -14,4 +14,5 @@ public interface IRiskService
     Task<List<RiskResponseDTO>> GetAllAsync(RiskFiltersDTO riskFiltersDto);
     Task<RiskResponseDTO> GetByIdAsync(int riskId);
     RiskFieldOptionsResponseDTO GetFieldOptions(); //Enums
+    Task UpdateRiskStatus(int riskId);
 }

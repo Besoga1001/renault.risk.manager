@@ -11,17 +11,21 @@ namespace renault.risk.manager.Application.Services;
 public class SolutionService : ISolutionService
 {
     private readonly ISolutionRepository solutionRepository;
+    private readonly IRiskService riskService;
 
-    public SolutionService(ISolutionRepository solutionRepository)
+    public SolutionService(
+        ISolutionRepository solutionRepository,
+        IRiskService riskService)
     {
         this.solutionRepository = solutionRepository;
+        this.riskService = riskService;
     }
 
     public async Task<SolutionResponseDTO> InsertAsync(SolutionInsertRequestDTO solutionInsertRequestDto)
     {
         var solutionEntity = await solutionRepository.AddAsync(solutionInsertRequestDto.ToEntity());
+        await riskService.UpdateRiskStatus(solutionInsertRequestDto.SlnRiskId);
         await solutionRepository.SaveChangesAsync();
-
         return solutionEntity.ToDto();
     }
 

@@ -1,6 +1,5 @@
 using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.FiltersDTOs;
-using renault.risk.manager.Domain.RequestDTOs;
 
 namespace renault.risk.manager.Application.Interfaces.Repositories;
 
