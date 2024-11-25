@@ -87,9 +87,10 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<RiskManagerContext>(options =>
-    options.UseNpgsql(builder.Configuration
-        .GetConnectionString("DefaultConnection"))
-        .UseLazyLoadingProxies());
+    options
+        .UseLazyLoadingProxies()
+        .UseNpgsql(builder.Configuration
+            .GetConnectionString("DefaultConnection")));
 
 builder.Services.AddHttpContextAccessor();
 

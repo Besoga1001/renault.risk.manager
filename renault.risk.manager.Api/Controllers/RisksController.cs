@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Domain.FiltersDTOs;
@@ -22,7 +23,8 @@ public class RisksController : ControllerBase
     [HttpPost]
     public async Task<ObjectResult> Insert(RiskInsertRequestDTO riskInsertRequestDto)
     {
-        return new OkObjectResult(await riskService.InsertAsync(riskInsertRequestDto));
+        return new ObjectResult(await riskService.InsertAsync(riskInsertRequestDto))
+            { StatusCode = (int)HttpStatusCode.Created };
     }
 
     [HttpPost("data-import")]

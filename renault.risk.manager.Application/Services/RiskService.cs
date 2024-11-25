@@ -8,7 +8,6 @@ using renault.risk.manager.Domain.Exceptions;
 using renault.risk.manager.Domain.FiltersDTOs;
 using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.RequestDTOs.RiskDTOs;
-using renault.risk.manager.Domain.ResponseDTOs;
 using renault.risk.manager.Domain.ResponseDTOs.Risk;
 
 namespace renault.risk.manager.Application.Services;
@@ -33,11 +32,11 @@ public class RiskService : IRiskService
         this.riskRepository = riskRepository;
     }
 
-    public async Task<RiskResponseDTO> InsertAsync(RiskInsertRequestDTO riskInsertRequestDto)
+    public async Task<int> InsertAsync(RiskInsertRequestDTO riskInsertRequestDto)
     {
         var riskEntity = await riskRepository.AddAsync(riskInsertRequestDto.ToEntity());
         await riskRepository.SaveChangesAsync();
-        return riskEntity.ToDto();
+        return riskEntity.rsk_id;
     }
 
     public async Task InsertRangeAsync(List<RiskInsertRequestDTO> riskInsertRequestDtos)

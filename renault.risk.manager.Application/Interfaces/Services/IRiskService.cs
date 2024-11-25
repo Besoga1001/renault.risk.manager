@@ -8,7 +8,7 @@ namespace renault.risk.manager.Application.Interfaces.Services;
 
 public interface IRiskService
 {
-    Task<RiskResponseDTO> InsertAsync(RiskInsertRequestDTO riskInsertRequestDto);
+    Task<int> InsertAsync(RiskInsertRequestDTO riskInsertRequestDto);
     Task InsertRangeAsync(List<RiskInsertRequestDTO> riskInsertRequestDtos);
     Task<RiskResponseDTO> UpdateAsync(int riskId, RiskUpdateRequestDTO riskUpdateRequestDto);
     Task<List<RiskResponseDTO>> GetAllAsync(RiskFiltersDTO riskFiltersDto);
