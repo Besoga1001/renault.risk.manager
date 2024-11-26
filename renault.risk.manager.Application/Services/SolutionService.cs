@@ -2,38 +2,56 @@ using renault.risk.manager.Application.Extensions;
 using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Domain.RequestDTOs;
+using renault.risk.manager.Domain.RequestDTOs.SolutionDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
+using renault.risk.manager.Domain.ResponseDTOs.Solution;
 
 namespace renault.risk.manager.Application.Services;
 
 public class SolutionService : ISolutionService
 {
-    private readonly ISolutionRepository _solutionRepository;
+    private readonly ISolutionRepository solutionRepository;
+    private readonly IRiskService riskService;
 
-    public SolutionService(ISolutionRepository solutionRepository)
+    public SolutionService(
+        ISolutionRepository solutionRepository,
+        IRiskService riskService)
     {
-        _solutionRepository = solutionRepository;
+        this.solutionRepository = solutionRepository;
+        this.riskService = riskService;
     }
 
-    public async Task<SolutionResponseDTO> InsertAsync(SolutionRequestDTO solutionRequestDto)
+    public async Task<SolutionResponseDTO> InsertAsync(SolutionInsertRequestDTO solutionInsertRequestDto)
     {
-        var solutionEntity = await _solutionRepository.AddAsync(solutionRequestDto.toEntity());
-        await _solutionRepository.SaveChangesAsync();
-        return solutionEntity.toDto();
+        var solutionEntity = await solutionRepository.AddAsync(solutionInsertRequestDto.ToEntity());
+        await riskService.UpdateRiskStatus(solutionInsertRequestDto.SlnRiskId);
+        await solutionRepository.SaveChangesAsync();
+        return solutionEntity.ToDto();
     }
 
-    public async Task<SolutionResponseDTO> UpdateAsync(SolutionRequestDTO riskRequestDto)
+    public async Task<SolutionResponseDTO> UpdateAsync(int solutionId, SolutionUpdateRequestDTO solutionUpdateRequestDTO)
     {
-        throw new NotImplementedException();
+        var solutionEntity = await solutionRepository.GetByIdAsync(solutionId);
+        solutionEntity.Mapper(solutionUpdateRequestDTO);
+
+        solutionRepository.Update(solutionEntity);
+        await solutionRepository.SaveChangesAsync();
+
+        return solutionEntity.ToDto();
     }
 
     public async Task<List<SolutionResponseDTO>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var solutionEntities = await solutionRepository.GetAllAsync();
+        return solutionEntities.Select(s => s.ToDto()).ToList();
     }
 
     public async Task<SolutionResponseDTO> GetByIdAsync(int riskId)
     {
-        throw new NotImplementedException();
+        var solutionEntity = await solutionRepository.GetByIdAsync(riskId);
+        return solutionEntity.ToDto();
     }
+
+    public SolutionFieldOptionsResponseDTO GetFieldOptions() => SolutionExtensions.GetFieldOptions();
+
 }

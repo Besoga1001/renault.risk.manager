@@ -8,7 +8,12 @@ public class tb_projectConfig : IEntityTypeConfiguration<tb_project>
 {
     public void Configure(EntityTypeBuilder<tb_project> builder)
     {
-        builder.ToTable(nameof(tb_project))
-            .HasKey(nameof(tb_project.pjc_id));
+        builder.HasMany(p => p.TbJalons)
+            .WithMany(j => j.TbProjects)
+            .UsingEntity(j => j.ToTable("tb_project_jalon"));
+
+        // builder.HasMany(p => p.TbMetiers)
+        //     .WithMany(j => j.TbProjects)
+        //     .UsingEntity(j => j.ToTable("tb_project_metier"));
     }
 }

@@ -1,33 +1,42 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using renault.risk.manager.Application.Interfaces.Services;
+using renault.risk.manager.Domain.RequestDTOs;
+using renault.risk.manager.Domain.RequestDTOs.UserDTOs;
 
 namespace renault.risk.manager.Api.Controllers;
 
 [ApiController]
-[Authorize]
-[Route("api/[controller]")]
+[Route("api/users")]
 public class UsersController : ControllerBase
 {
-    private readonly IUserService _userService;
+    private readonly IUserService userService;
 
     // ReSharper disable once ConvertToPrimaryConstructor
     public UsersController(IUserService userService)
     {
-        _userService = userService;
+        this.userService = userService;
+    }
+
+    [HttpPost("login")]
+    public async Task<ObjectResult> Login(UserLoginRequestDTO userLoginRequestDto)
+    {
+        return new OkObjectResult(await userService.Login(userLoginRequestDto));
+    }
+
+    [HttpPost("/import-data")]
+    public async Task<ObjectResult> InsertRangeAsync(List<UserInsertRequestDTO> userInsertRequestDtos)
+    {
+        await userService.InsertRangeAsync(userInsertRequestDtos);
+        return new OkObjectResult("Data Import Completed Successfully");
     }
 
     [HttpPost]
-    public void ValidateUser()
+    public async Task<ObjectResult> InsertAsync(UserInsertRequestDTO userInsertRequestDto)
     {
-        var email = User
-            .Claims
-            .FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?
-            .Value;
-
-        if (email != null)
-        {
-            _userService.ValidateUser(email);
-        }
+        await userService.InsertAsync(userInsertRequestDto);
+        return new OkObjectResult("Successfully to Insert New User.");
     }
+
+
 }

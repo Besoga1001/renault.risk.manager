@@ -9,36 +9,43 @@ namespace renault.risk.manager.Application.Services;
 
 public class ProjectService : IProjectService
 {
-    private readonly IProjectRepository _projectRepository;
+    private readonly IProjectRepository projectRepository;
+    private readonly IJalonRepository jalonRepository;
 
     // ReSharper disable once ConvertToPrimaryConstructor
-    public ProjectService(IProjectRepository projectRepository)
+    public ProjectService(IProjectRepository projectRepository, IJalonRepository jalonRepository)
     {
-        _projectRepository = projectRepository;
+        this.projectRepository = projectRepository;
+        this.jalonRepository = jalonRepository;
     }
     
     public async Task<ProjectResponseDTO> Insert(ProjectRequestDTO projectRequestDto)
     {
-        var projectEntity = await _projectRepository.AddAsync(projectRequestDto.ToEntity());
-        await _projectRepository.SaveChangesAsync();
+        var jalonEntities = new List<tb_jalon>();
+        foreach (var jalonId in projectRequestDto.Jalons)
+        {
+            jalonEntities.Add(await jalonRepository.GetByIdAsync(jalonId));
+        }
+        var projectEntity = await projectRepository.AddAsync(projectRequestDto.ToEntity(jalonEntities));
+        await projectRepository.SaveChangesAsync();
         return projectEntity.ToDto();
     }
 
     public async Task<List<ProjectResponseDTO>> GetAllAsync(string? name)
     {
-        var projectEntities = await _projectRepository.GetAllAsync(name);
+        var projectEntities = await projectRepository.GetAllAsync(name);
         return projectEntities.Select(x => x.ToDto()).ToList();
     }
     
     public async Task<ProjectResponseDTO> GetByIdAsync(int id)
     {
-        var projectEntity = await _projectRepository.GetByIdAsync(id);
+        var projectEntity = await projectRepository.GetByIdAsync(id);
         return projectEntity.ToDto();
     }
 
     public string Delete(int id)
     {
-        var response = _projectRepository.Remove(id);
+        var response = projectRepository.Remove(id);
         return response ? $"Registry {id} Deleted Successfully" : $"Error to Delete Registry {id}";
     }
 

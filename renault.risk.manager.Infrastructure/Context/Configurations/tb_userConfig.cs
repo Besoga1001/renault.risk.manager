@@ -8,7 +8,8 @@ public class tb_userConfig : IEntityTypeConfiguration<tb_user>
 {
     public void Configure(EntityTypeBuilder<tb_user> builder)
     {
-        builder.ToTable(nameof(tb_user))
-            .HasKey(nameof(tb_user.usr_id));
+        builder.HasMany(p => p.TbMetiers)
+            .WithMany(j => j.TbUsers)
+            .UsingEntity(j => j.ToTable("tb_user_metier"));
     }
 }

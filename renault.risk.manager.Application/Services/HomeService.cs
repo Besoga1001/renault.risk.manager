@@ -1,36 +1,48 @@
 using renault.risk.manager.Application.Extensions;
 using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Application.Interfaces.Services;
+using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.ResponseDTOs.Home;
+using renault.risk.manager.Domain.ResponseDTOs.Risk;
 
 namespace renault.risk.manager.Application.Services;
 
 public class HomeService : IHomeService
 {
+    private readonly IClaimsUserService claimsUserService;
+    private readonly IUserRepository userRepository;
     private readonly IRiskRepository riskRepository;
     private readonly IProjectRepository projectRepository;
 
     // ReSharper disable once ConvertToPrimaryConstructor
-    public HomeService(IRiskRepository riskRepository, IProjectRepository projectRepository)
+    public HomeService(
+        IClaimsUserService claimsUserService,
+        IUserRepository userRepository,
+        IRiskRepository riskRepository,
+        IProjectRepository projectRepository)
     {
+        this.claimsUserService = claimsUserService;
+        this.userRepository = userRepository;
         this.riskRepository = riskRepository;
         this.projectRepository = projectRepository;
     }
 
+    public async Task<List<RiskResponseDTO>> GetRisksByUserMetier()
+    {
+        var userEntity = await userRepository.GetByEmailAsync(claimsUserService.GetCurrentUserEmail());
+        var riskEntities = await riskRepository.GetAllAsync(userEntity?.TbMetiers);
+        return riskEntities.Select(r => r.ToDto()).ToList();
+    }
+
     public async Task<CardsHomeResponseDTO> GetInfoCards()
     {
-        var firstWeekDay = DateTime.Now.Date.AddDays(-(int)DateTime.Now.DayOfWeek);
-        var lastWeekDay = firstWeekDay.AddDays(6);
-        var firstMonthDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-        var lastMonthDay = firstMonthDay.AddMonths(1).AddDays(-1);
-
         var riskEntities = await riskRepository.GetAllAsync();
 
         return new CardsHomeResponseDTO
         {
-            WeeklyRisk = riskEntities.GetWeelkyRisks(firstWeekDay, lastWeekDay),
-            ResolvedMonthlyRisks = riskEntities.GetMonthRisks(true, firstMonthDay, lastMonthDay),
-            NoResolvedMonthlyRisks = riskEntities.GetMonthRisks(false, firstMonthDay, lastMonthDay),
+            WeeklyRisk = riskEntities.GetWeeklyRisks(),
+            ResolvedMonthlyRisks = riskEntities.GetCurrentMonthRisks(true),
+            NoResolvedMonthlyRisks = riskEntities.GetCurrentMonthRisks(false),
             TotalCriticalRisks = riskEntities.GetTotalCriticalRisks()
         };
     }

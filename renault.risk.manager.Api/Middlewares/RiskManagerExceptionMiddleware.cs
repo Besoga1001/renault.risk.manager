@@ -70,7 +70,7 @@ public class RiskManagerExceptionMiddleware
         var response = new
         {
             message = "An error occurred while saving changes to the database.",
-            detail = exception.Message
+            detail = exception.InnerException?.Message
         };
 
         context.Response.StatusCode = (int)statusCode;

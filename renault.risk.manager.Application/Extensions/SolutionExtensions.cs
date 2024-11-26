@@ -1,43 +1,88 @@
+using renault.risk.manager.Application.Helpers;
 using renault.risk.manager.Domain.Entities;
-using renault.risk.manager.Domain.RequestDTOs;
+using renault.risk.manager.Domain.Enums;
+using renault.risk.manager.Domain.Enums.Solution;
+using renault.risk.manager.Domain.RequestDTOs.SolutionDTOs;
 using renault.risk.manager.Domain.ResponseDTOs;
+using renault.risk.manager.Domain.ResponseDTOs.Solution;
 
 namespace renault.risk.manager.Application.Extensions;
 
 public static class SolutionExtensions
 {
-    public static tb_solution toEntity(this SolutionRequestDTO solutionRequestDto) => new ()
+    public static tb_solution ToEntity(this SolutionInsertRequestDTO solutionRequestDto) => new ()
     {
-        sln_strategy = solutionRequestDto.Strategy,
-        sln_residual_probability = solutionRequestDto.ResidualProbability,
-        sln_residual_impact = solutionRequestDto.ResidualImpact,
-        sln_action_validation = solutionRequestDto.ActionValidation,
-        sln_risk_validation  = solutionRequestDto.RiskValidation,
-        sln_alert_date = solutionRequestDto.AlertDate,
-        sln_captalization = solutionRequestDto.Captalization,
-        sln_user_pilot_id = solutionRequestDto.UserPilotId,
-        sln_start_action_plan_date = solutionRequestDto.StartActionPlanDate,
-        sln_action = solutionRequestDto.Action,
-        sln_observation = solutionRequestDto.Observation,
-        sln_resolution_date = solutionRequestDto.ResolutionDate,
-        sln_created_at = DateTime.Now,
-        sln_risk_id = solutionRequestDto.RiskId
+        sln_risk_id = solutionRequestDto.SlnRiskId,
+        sln_strategy = solutionRequestDto.SlnStrategy,
+        sln_residual_probability = solutionRequestDto.SlnResidualProbability,
+        sln_residual_impact = solutionRequestDto.SlnResidualImpact,
+        sln_action_validation = solutionRequestDto.SlnActionValidation,
+        sln_risk_validation  = solutionRequestDto.SlnRiskValidation,
+        sln_alert_date = solutionRequestDto.SlnAlertDate,
+        sln_captalization = solutionRequestDto.SlnCaptalization,
+        sln_user_pilot_id = solutionRequestDto.SlnUserPilotId,
+        sln_start_action_plan_date = solutionRequestDto.SlnStartActionPlanDate,
+        sln_action = solutionRequestDto.SlnAction,
+        sln_observation = solutionRequestDto.SlnObservation,
+        sln_resolution_date = solutionRequestDto.SlnResolutionDate,
+        sln_created_at = DateTime.Now
     };
 
-    public static SolutionResponseDTO toDto(this tb_solution solutionEntity) => new ()
+    public static SolutionResponseDTO ToDto(this tb_solution solutionEntity) => new
+    (
+        solutionEntity.sln_id,
+        solutionEntity.sln_strategy,
+        solutionEntity.sln_residual_probability,
+        solutionEntity.sln_residual_impact,
+        solutionEntity.sln_action_validation,
+        solutionEntity.sln_risk_validation,
+        solutionEntity.sln_alert_date,
+        solutionEntity.sln_captalization,
+        solutionEntity.sln_user_pilot_id,
+        solutionEntity.sln_start_action_plan_date,
+        solutionEntity.sln_action,
+        solutionEntity.sln_observation,
+        solutionEntity.sln_resolution_date,
+        solutionEntity.TbRisk.rsk_id
+    );
+
+    public static void Mapper(this tb_solution solutionEntity, SolutionUpdateRequestDTO solutionUpdateRequestDto)
     {
-        Id = solutionEntity.sln_id,
-        Strategy = solutionEntity.sln_strategy,
-        ResidualProbability = solutionEntity.sln_residual_probability,
-        ResidualImpact = solutionEntity.sln_residual_impact,
-        ActionValidation = solutionEntity.sln_action_validation,
-        RiskValidation = solutionEntity.sln_risk_validation,
-        AlertDate = solutionEntity.sln_alert_date,
-        Captalization = solutionEntity.sln_captalization,
-        UserPilotId = solutionEntity.sln_user_pilot_id,
-        StartActionPlanDate = solutionEntity.sln_start_action_plan_date,
-        Action = solutionEntity.sln_action,
-        Observation = solutionEntity.sln_observation,
-        ResolutionDate = solutionEntity.sln_resolution_date
-    };
+        if (solutionUpdateRequestDto.SlnStrategy != null)
+            solutionEntity.sln_strategy = solutionUpdateRequestDto.SlnStrategy;
+        if (solutionUpdateRequestDto.SlnResidualProbability != null)
+            solutionEntity.sln_residual_probability = solutionUpdateRequestDto.SlnResidualProbability;
+        if (solutionUpdateRequestDto.SlnResidualImpact != null)
+            solutionEntity.sln_residual_impact = solutionUpdateRequestDto.SlnResidualImpact;
+        if (solutionUpdateRequestDto.SlnActionValidation != null)
+            solutionEntity.sln_action_validation = solutionUpdateRequestDto.SlnActionValidation;
+        if (solutionUpdateRequestDto.SlnRiskValidation != null)
+            solutionEntity.sln_risk_validation = solutionUpdateRequestDto.SlnRiskValidation;
+        if (solutionUpdateRequestDto.SlnAlertDate != null)
+            solutionEntity.sln_alert_date = solutionUpdateRequestDto.SlnAlertDate.Value;
+        if (solutionUpdateRequestDto.SlnCaptalization != null)
+            solutionEntity.sln_captalization = solutionUpdateRequestDto.SlnCaptalization.Value;
+        if (solutionUpdateRequestDto.SlnUserPilotId != null)
+            solutionEntity.sln_user_pilot_id = solutionUpdateRequestDto.SlnUserPilotId.Value;
+        if (solutionUpdateRequestDto.SlnStartActionPlanDate != null)
+            solutionEntity.sln_start_action_plan_date = solutionUpdateRequestDto.SlnStartActionPlanDate.Value;
+        if (solutionUpdateRequestDto.SlnAction != null)
+            solutionEntity.sln_action = solutionUpdateRequestDto.SlnAction;
+        if (solutionUpdateRequestDto.SlnObservation != null)
+            solutionEntity.sln_observation = solutionUpdateRequestDto.SlnObservation;
+        if (solutionUpdateRequestDto.SlnResolutionDate != null)
+            solutionEntity.sln_resolution_date = solutionUpdateRequestDto.SlnResolutionDate.Value;
+        solutionEntity.sln_updated_at = DateTime.Now;
+    }
+
+    public static SolutionFieldOptionsResponseDTO GetFieldOptions() => new(
+        Enum.GetValues<SolutionStrategiesTypesEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription()),
+        Enum.GetValues<FieldLevelsEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription()),
+        Enum.GetValues<FieldLevelsEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription()),
+        Enum.GetValues<SolutionRiskValidationTypesEnum>()
+            .ToDictionary(e => (int)e, e => e.GetDescription())
+    );
 }

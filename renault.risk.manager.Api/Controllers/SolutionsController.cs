@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Domain.RequestDTOs;
+using renault.risk.manager.Domain.RequestDTOs.SolutionDTOs;
 
 namespace renault.risk.manager.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
-public class SolutionsController
+[Route("api/solutions")]
+public class SolutionsController : ControllerBase
 {
     private readonly ISolutionService solutionService;
 
@@ -17,15 +18,15 @@ public class SolutionsController
     }
 
     [HttpPost]
-    public async Task<ObjectResult> Insert(SolutionRequestDTO solutionRequestDto)
+    public async Task<ObjectResult> Insert(SolutionInsertRequestDTO solutionInsertRequestDto)
     {
-        return new OkObjectResult(await solutionService.InsertAsync(solutionRequestDto));
+        return new OkObjectResult(await solutionService.InsertAsync(solutionInsertRequestDto));
     }
 
-    [HttpPatch("{id}")]
-    public async Task<ObjectResult> Update(SolutionRequestDTO solutionRequestDto)
+    [HttpPatch("{solutionId}")]
+    public async Task<ObjectResult> Update(int solutionId, [FromBody] SolutionUpdateRequestDTO solutionUpdateRequestDto)
     {
-        return new OkObjectResult(await solutionService.UpdateAsync(solutionRequestDto));
+        return new OkObjectResult(await solutionService.UpdateAsync(solutionId, solutionUpdateRequestDto));
     }
 
     [HttpGet]
@@ -38,5 +39,11 @@ public class SolutionsController
     public async Task<ObjectResult> GetById(int id)
     {
         return new OkObjectResult(await solutionService.GetByIdAsync(id));
+    }
+
+    [HttpGet("field-options")]
+    public ObjectResult GetFieldOptions()
+    {
+        return new OkObjectResult(solutionService.GetFieldOptions());
     }
 }

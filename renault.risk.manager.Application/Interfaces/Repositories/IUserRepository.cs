@@ -4,5 +4,6 @@ namespace renault.risk.manager.Application.Interfaces.Repositories;
 
 public interface IUserRepository : IRepositoryGenerics<tb_user>
 {
-    Task<List<tb_user>> GetByEmailAsync(string email);
+    Task AddRangeAsync(List<tb_user> userEntities);
+    Task<tb_user?> GetByEmailAsync(string email);
 }
