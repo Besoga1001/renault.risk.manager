@@ -4,6 +4,7 @@ using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.Enums;
+using renault.risk.manager.Domain.Enums.Risk;
 using renault.risk.manager.Domain.Exceptions;
 using renault.risk.manager.Domain.FiltersDTOs;
 using renault.risk.manager.Domain.RequestDTOs;
