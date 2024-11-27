@@ -50,15 +50,15 @@ public static class SolutionExtensions
     public static void Mapper(this tb_solution solutionEntity, SolutionUpdateRequestDTO solutionUpdateRequestDto)
     {
         if (solutionUpdateRequestDto.SlnStrategy != null)
-            solutionEntity.sln_strategy = solutionUpdateRequestDto.SlnStrategy;
+            solutionEntity.sln_strategy = solutionUpdateRequestDto.SlnStrategy.GetDescription();
         if (solutionUpdateRequestDto.SlnResidualProbability != null)
-            solutionEntity.sln_residual_probability = solutionUpdateRequestDto.SlnResidualProbability;
+            solutionEntity.sln_residual_probability = solutionUpdateRequestDto.SlnResidualProbability.GetDescription();
         if (solutionUpdateRequestDto.SlnResidualImpact != null)
-            solutionEntity.sln_residual_impact = solutionUpdateRequestDto.SlnResidualImpact;
+            solutionEntity.sln_residual_impact = solutionUpdateRequestDto.SlnResidualImpact.GetDescription();
         if (solutionUpdateRequestDto.SlnActionValidation != null)
-            solutionEntity.sln_action_validation = solutionUpdateRequestDto.SlnActionValidation;
+            solutionEntity.sln_action_validation = solutionUpdateRequestDto.SlnActionValidation.GetDescription();
         if (solutionUpdateRequestDto.SlnRiskValidation != null)
-            solutionEntity.sln_risk_validation = solutionUpdateRequestDto.SlnRiskValidation;
+            solutionEntity.sln_risk_validation = solutionUpdateRequestDto.SlnRiskValidation.GetDescription();
         if (solutionUpdateRequestDto.SlnAlertDate != null)
             solutionEntity.sln_alert_date = solutionUpdateRequestDto.SlnAlertDate.Value;
         if (solutionUpdateRequestDto.SlnCaptalization != null)
