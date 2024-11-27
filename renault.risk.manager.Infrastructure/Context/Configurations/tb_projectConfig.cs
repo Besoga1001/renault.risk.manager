@@ -11,9 +11,5 @@ public class tb_projectConfig : IEntityTypeConfiguration<tb_project>
         builder.HasMany(p => p.TbJalons)
             .WithMany(j => j.TbProjects)
             .UsingEntity(j => j.ToTable("tb_project_jalon"));
-
-        // builder.HasMany(p => p.TbMetiers)
-        //     .WithMany(j => j.TbProjects)
-        //     .UsingEntity(j => j.ToTable("tb_project_metier"));
     }
 }

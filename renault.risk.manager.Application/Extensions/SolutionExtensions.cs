@@ -28,7 +28,7 @@ public static class SolutionExtensions
         sln_created_at = DateTime.Now
     };
 
-    public static SolutionResponseDTO ToDto(this tb_solution solutionEntity) => new
+    public static SolutionResponseDTO ToDto(this tb_solution solutionEntity, string userPilotName) => new
     (
         solutionEntity.sln_id,
         solutionEntity.sln_strategy,
@@ -39,6 +39,7 @@ public static class SolutionExtensions
         solutionEntity.sln_alert_date,
         solutionEntity.sln_captalization,
         solutionEntity.sln_user_pilot_id,
+        userPilotName,
         solutionEntity.sln_start_action_plan_date,
         solutionEntity.sln_action,
         solutionEntity.sln_observation,
