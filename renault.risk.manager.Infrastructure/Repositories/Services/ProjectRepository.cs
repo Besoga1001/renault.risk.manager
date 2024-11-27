@@ -26,4 +26,7 @@ public class ProjectRepository : RepositoryGenerics<tb_project>, IProjectReposit
         
         return await query.ToListAsync();
     }
+
+    public List<tb_project> GetAll(bool isActive) =>
+        _riskManagerContext.tb_projects.Where(p => p.pjc_status == isActive).ToList();
 }

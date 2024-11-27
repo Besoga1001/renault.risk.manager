@@ -71,9 +71,9 @@ public class RiskService : IRiskService
 
     public RiskFieldOptionsResponseDTO GetFieldOptions()
     {
-        var projectEntities = projectRepository.GetAll();
-        var jalonEntities = jalonRepository.GetAll();
-        var metierEntities = metierRepository.GetAll();
+        var projectEntities = projectRepository.GetAll(true);
+        var jalonEntities = jalonRepository.GetAll(true);
+        var metierEntities = metierRepository.GetAll(true);
         return RiskExtensions.GetFieldOptions(projectEntities, jalonEntities, metierEntities);
     }
 

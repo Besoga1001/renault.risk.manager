@@ -27,5 +27,7 @@ public class JalonRepository : RepositoryGenerics<tb_jalon>, IJalonRepository
         return await query.ToListAsync();
     }
 
+    public List<tb_jalon> GetAll(bool isActive) =>
+        _riskManagerContext.tb_jalons.Where(j => j.jal_status == isActive).ToList();
 
 }
