@@ -9,7 +9,7 @@ public record SolutionResponseDTO(
     string SlnRiskValidation,
     DateTime SlnAlertDate,
     bool SlnCaptalization,
-    int SlnUserPilotId,
+    int PilotName,
     string SlnUserPilotName,
     DateTime SlnStartActionPlanDate,
     string SlnAction,
