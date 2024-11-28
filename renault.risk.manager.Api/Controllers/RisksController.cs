@@ -1,4 +1,5 @@
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Domain.FiltersDTOs;
@@ -7,8 +8,8 @@ using renault.risk.manager.Domain.RequestDTOs.RiskDTOs;
 
 namespace renault.risk.manager.Api.Controllers;
 
-// [Authorize]
 [ApiController]
+[Authorize]
 [Route("api/risks")]
 public class RisksController : ControllerBase
 {

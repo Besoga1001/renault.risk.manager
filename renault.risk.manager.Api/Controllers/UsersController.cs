@@ -7,6 +7,7 @@ using renault.risk.manager.Domain.RequestDTOs.UserDTOs;
 namespace renault.risk.manager.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/users")]
 public class UsersController : ControllerBase
 {

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Domain.RequestDTOs;
@@ -6,6 +7,7 @@ using renault.risk.manager.Domain.RequestDTOs.JalonDTOs;
 namespace renault.risk.manager.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/jalons")]
 public class JalonsController : ControllerBase
 {
