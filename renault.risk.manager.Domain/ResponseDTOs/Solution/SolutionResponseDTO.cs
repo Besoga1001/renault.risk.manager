@@ -1,7 +1,6 @@
 namespace renault.risk.manager.Domain.ResponseDTOs.Solution;
 
-public record SolutionResponseDTO
-(
+public record SolutionResponseDTO(
     int SlnId,
     string SlnStrategy,
     string SlnResidualProbability,
@@ -11,6 +10,7 @@ public record SolutionResponseDTO
     DateTime SlnAlertDate,
     bool SlnCaptalization,
     int SlnUserPilotId,
+    string PilotName,
     DateTime SlnStartActionPlanDate,
     string SlnAction,
     string SlnObservation,

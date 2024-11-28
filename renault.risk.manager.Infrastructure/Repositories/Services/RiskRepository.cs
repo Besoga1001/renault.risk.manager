@@ -75,11 +75,8 @@ public class RiskRepository : RepositoryGenerics<tb_risk>, IRiskRepository
         var query = _riskManagerContext.tb_risks.AsQueryable();
         if (metierEntities != null)
         {
-            foreach (var metierEntity in metierEntities)
-            {
-                query = query.Where(r => r.TbMetier == metierEntity);
-            }
+            query = query.Where(r => metierEntities.Contains(r.TbMetier));
         }
-        return await query.OrderBy(r => r.rsk_id).Take(12).ToListAsync();
+        return await query.OrderByDescending(r => r.rsk_created_at).Take(12).ToListAsync();
     }
 }

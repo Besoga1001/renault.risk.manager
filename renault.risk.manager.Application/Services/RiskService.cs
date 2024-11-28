@@ -4,6 +4,7 @@ using renault.risk.manager.Application.Interfaces.Repositories;
 using renault.risk.manager.Application.Interfaces.Services;
 using renault.risk.manager.Domain.Entities;
 using renault.risk.manager.Domain.Enums;
+using renault.risk.manager.Domain.Enums.Risk;
 using renault.risk.manager.Domain.Exceptions;
 using renault.risk.manager.Domain.FiltersDTOs;
 using renault.risk.manager.Domain.RequestDTOs;
@@ -70,9 +71,9 @@ public class RiskService : IRiskService
 
     public RiskFieldOptionsResponseDTO GetFieldOptions()
     {
-        var projectEntities = projectRepository.GetAll();
-        var jalonEntities = jalonRepository.GetAll();
-        var metierEntities = metierRepository.GetAll();
+        var projectEntities = projectRepository.GetAll(true);
+        var jalonEntities = jalonRepository.GetAll(true);
+        var metierEntities = metierRepository.GetAll(true);
         return RiskExtensions.GetFieldOptions(projectEntities, jalonEntities, metierEntities);
     }
 

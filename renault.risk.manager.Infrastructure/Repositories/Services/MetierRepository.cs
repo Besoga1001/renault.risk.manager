@@ -31,4 +31,7 @@ public class MetierRepository : RepositoryGenerics<tb_metier>, IMetierRepository
 
         return await query.ToListAsync();
     }
+
+    public List<tb_metier> GetAll(bool isActive) =>
+        _riskManagerContext.tb_metiers.Where(m => m.met_status == isActive).ToList();
 }
