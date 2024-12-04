@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using renault.risk.manager.Application.Interfaces.Services;
-using renault.risk.manager.Domain.Enums;
-using renault.risk.manager.Domain.ResponseDTOs;
 
 namespace renault.risk.manager.Api.Controllers;
 

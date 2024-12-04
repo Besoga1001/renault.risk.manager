@@ -1,13 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using renault.risk.manager.Application.Interfaces.Services;
-using renault.risk.manager.Domain.RequestDTOs;
 using renault.risk.manager.Domain.RequestDTOs.UserDTOs;
 
 namespace renault.risk.manager.Api.Controllers;
 
 [ApiController]
-[Authorize]
 [Route("api/users")]
 public class UsersController : ControllerBase
 {
@@ -25,6 +23,7 @@ public class UsersController : ControllerBase
         return new OkObjectResult(await userService.Login(userLoginRequestDto));
     }
 
+    [Authorize]
     [HttpPost("/import-data")]
     public async Task<ObjectResult> InsertRangeAsync(List<UserInsertRequestDTO> userInsertRequestDtos)
     {
@@ -33,6 +32,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<ObjectResult> InsertAsync(UserInsertRequestDTO userInsertRequestDto)
     {
         await userService.InsertAsync(userInsertRequestDto);
